@@ -1,22 +1,17 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.5
 import logininterface 1.0
-
+import QtGraphicalEffects 1.12
 Item {
     id: root
     width: 968
     height: 450
     x:0
     y:0
-    state: "normal"
     signal closeLogin()
     signal registerClicked()
     property point deltaPos: "0,0"  //定义一个点
-    function start()
-    {
-        anim.start()
-    }
-
+    state: "normal"
     LoginInterface{
         id:loginInterface
     }
@@ -34,8 +29,8 @@ Item {
 
         Rectangle {
             id: loginRect
-            x: 652
-            width: 348
+            x: 620
+            width: 350
             color: "#0d335d"
             anchors.right: parent.right
             anchors.top: parent.top
@@ -46,19 +41,17 @@ Item {
 
             TextEdit {
                 id: textEdit
+                width: 252
                 color: "#edebeb"
                 text: qsTr("CMS上位机")
-                anchors.left: parent.left
-                anchors.right: parent.right
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
-                font.pixelSize: 40
+                font.pixelSize: 53
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
+                anchors.horizontalCenter: parent.horizontalCenter
                 readOnly: true
-                anchors.rightMargin: 77
                 anchors.bottomMargin: 273
-                anchors.leftMargin: 92
                 anchors.topMargin: 34
                 textFormat: Text.PlainText
                 font.weight: Font.Normal
@@ -121,7 +114,7 @@ Item {
                         anchors.left: parent.left
                         anchors.right: parent.right
                         font.pixelSize: 18
-                        horizontalAlignment: Text.AlignHCenter
+                        horizontalAlignment: Text.AlignLeft
                         verticalAlignment: Text.AlignVCenter
                         maximumLength: 32767
                         passwordCharacter: "\u25cf"
@@ -144,13 +137,7 @@ Item {
                             password.focus = true
                         }
                     }
-
-
                 }
-
-
-
-
 
             }
 
@@ -198,7 +185,7 @@ Item {
                         anchors.top: parent.top
                         anchors.bottom: parent.bottom
                         font.pixelSize: 18
-                        horizontalAlignment: Text.AlignHCenter
+                        horizontalAlignment: Text.AlignLeft
                         verticalAlignment: Text.AlignVCenter
                         maximumLength: 32767
                         echoMode: TextInput.Password
@@ -235,7 +222,7 @@ Item {
 
             Text {
                 id: text3
-                y: 364
+                y: 131
                 height: 36
                 color: "#ffffff"
                 text: qsTr("Control System Management")
@@ -245,83 +232,111 @@ Item {
                 font.pixelSize: 15
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
-                anchors.rightMargin: 69
+                anchors.rightMargin: 70
                 anchors.leftMargin: 69
-                anchors.bottomMargin: 0
+                anchors.bottomMargin: 283
             }
 
             Rectangle {
                 id: loginBtn
-                y: 328
-                width: 70
-                height: 29
-                color: "#a7c0dc"
+                y: 318
+                width: 113
+                height: 43
+                color: "#00a7c0dc"
                 radius: 2
+                border.color: "#80d6e0f1"
+                border.width: 1
                 anchors.left: parent.left
                 anchors.bottom: parent.bottom
-                anchors.leftMargin: 69
-                anchors.bottomMargin: 93
+                anchors.leftMargin: 126
+                anchors.bottomMargin: 89
 
                 Text {
                     id: text4
                     text: qsTr("Login")
-                    anchors.fill: parent
-                    font.pixelSize: 12
+                    font.pixelSize: 15
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
-                    property bool m_isEnter:false
+                    x: 42
+                    y: 6
+                    width: 63
+                    height: 32
+                    color: "#ffffff"
+                }
 
-                    MouseArea {
-                        id: mouseArea
+                Rectangle {
+                    id: rectangle5
+                    x: 7
+                    y: 5
+                    width: 38
+                    height: 33
+                    color: "#00ffffff"
+
+                    Image {
+                        id: image2
                         anchors.fill: parent
-                        anchors.rightMargin: 0
-                        anchors.bottomMargin: 0
-                        anchors.leftMargin: 0
-                        anchors.topMargin: 0
-                        hoverEnabled: true
-                        onClicked: {
-                            //loginInterface.IsCanLogin(userName.text,password.text);
+                        source: "image/loginBtn.svg"
+                        fillMode: Image.PreserveAspectFit
+                        ColorOverlay{
+                            id :coloroverlay
+                            anchors.fill: image2
+                            source: image2
+                            color: "#a7c0dc"
                         }
+                    }
+                }
 
-                        onEntered:{
-                            text4.m_isEnter = true
-                            loginBtn.color= "#ffffff"
-                        }
-                        onExited: {
-                            text4.m_isEnter = false
-                            loginBtn.color= "#a7c0dc"
-                        }
-                        onPressed: {
-                            loginBtn.color="#5097ee"
-                        }
-                        onReleased: {
-                            if (text4.m_isEnter == true)
-                                loginBtn.color="#ffffff"
-                        }
+                MouseArea {
+                    id: mouseArea
+                    anchors.fill: loginBtn
+                    hoverEnabled: true
+                    property bool m_isEnter:false
+                    onClicked: {
+                        //loginInterface.IsCanLogin(userName.text,password.text);
+                    }
+                    onEntered:{
+                        m_isEnter = true
+                        loginBtn.border.color= "#d6e0f1"
+                        //text4.color = "#000000"
+                        //coloroverlay.color = "#43474d"
+                    }
+                    onExited: {
+                        m_isEnter = false
+                        loginBtn.border.color= "#80d6e0f1"
+                        //text4.color = "#ffffff"
+                        //coloroverlay.color = "#a7c0dc"
+                    }
+                    onPressed: {
+                        loginBtn.border.color="#5097ee"
+                    }
+                    onReleased: {
+                        if (m_isEnter == true)
+                            loginBtn.border.color="#d6e0f1"
                     }
                 }
             }
 
             Rectangle {
                 id: registerBtn
-                y: 328
+                y: 421
                 height: 29
-                color: "#a7c0dc"
+                color: "#00a7c0dc"
                 radius: 2
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.bottom: parent.bottom
-                anchors.leftMargin: 209
-                anchors.bottomMargin: 93
-                anchors.rightMargin: 69
+                anchors.leftMargin: 270
+                anchors.bottomMargin: 0
+                anchors.rightMargin: 8
 
                 Text {
                     id: text5
                     text: qsTr("Register")
                     anchors.fill: parent
                     font.pixelSize: 12
-                    horizontalAlignment: Text.AlignHCenter
+                    horizontalAlignment: Text.AlignRight
                     verticalAlignment: Text.AlignVCenter
+                    color: "#80d6e0f1"
                     property bool m_isEnter:false
 
                     MouseArea {
@@ -338,18 +353,65 @@ Item {
 
                         onEntered:{
                             text5.m_isEnter = true
-                            registerBtn.color= "#ffffff"
+                            text5.color= "#ffffff"
                         }
                         onExited: {
                             text5.m_isEnter = false
-                            registerBtn.color= "#a7c0dc"
+                            text5.color= "#80d6e0f1"
                         }
                         onPressed: {
-                            registerBtn.color="#5097ee"
+                            text5.color="#5097ee"
                         }
                         onReleased: {
                             if (text5.m_isEnter == true)
-                                registerBtn.color="#ffffff"
+                                text5.color="#ffffff"
+                        }
+                    }
+                }
+            }
+
+            Rectangle {
+                id: rectangle6
+                x: 8
+                y: 421
+                width: 72
+                height: 29
+                color: "#00ffffff"
+
+                Text {
+                    id: text6
+                    text: qsTr("Forget")
+                    anchors.fill: parent
+                    font.pixelSize: 12
+                    horizontalAlignment: Text.AlignLeft
+                    verticalAlignment: Text.AlignVCenter
+                    color: "#80d6e0f1"
+                    MouseArea {
+                        anchors.fill: parent
+                        anchors.rightMargin: 0
+                        anchors.bottomMargin: 0
+                        anchors.leftMargin: 0
+                        anchors.topMargin: 0
+                        hoverEnabled: true
+                        property bool m_isEnter:false
+                        onClicked: {
+                            registerClicked()
+                        }
+
+                        onEntered:{
+                            m_isEnter = true
+                            text6.color= "#ffffff"
+                        }
+                        onExited: {
+                            m_isEnter = false
+                            text6.color= "#80d6e0f1"
+                        }
+                        onPressed: {
+                            text6.color="#5097ee"
+                        }
+                        onReleased: {
+                            if (m_isEnter == true)
+                                text6.color="#ffffff"
                         }
                     }
                 }
@@ -417,7 +479,12 @@ Item {
             source: "image/close.png"
             cache: false
             fillMode: Image.PreserveAspectFit
-
+            ColorOverlay{
+                id :coloroverlay2
+                anchors.fill: image1
+                source: image1
+                color: "#a7c0dc"
+            }
             MouseArea{
                 anchors.fill: parent
                 hoverEnabled: true
@@ -477,6 +544,10 @@ Item {
         }
     ]
 }
+
+
+
+
 
 
 

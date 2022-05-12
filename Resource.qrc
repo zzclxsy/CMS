@@ -61,5 +61,7 @@
         <file>image/wait.gif</file>
         <file>image/warning.png</file>
         <file>image/gohome.svg</file>
+        <file>image/loginBtn.svg</file>
+        <file>image/registerBtn.svg</file>
     </qresource>
 </RCC>

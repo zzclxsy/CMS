@@ -28,15 +28,18 @@ Item {
             id: rectangle1
             x: 0
             y: 0
-            width: 43
-            height: 36
+            width: 27
+            height: 27
             color: "#00ffffff"
 
             Image {
                 id: image
                 anchors.fill: parent
                 source: "image/gohome.svg"
-                fillMode: Image.PreserveAspectFit
+                mirror: false
+                sourceSize.height: 183
+                sourceSize.width: 176
+                fillMode: Image.Stretch
                 ColorOverlay{
                     id :coloroverlay
                     anchors.fill: image
@@ -114,6 +117,6 @@ Item {
 
 /*##^##
 Designer {
-    D{i:0;autoSize:true;height:480;width:640}D{i:3}
+    D{i:0;autoSize:true;height:480;width:640}
 }
 ##^##*/

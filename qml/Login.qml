@@ -2,6 +2,8 @@ import QtQuick 2.0
 import QtQuick.Controls 2.5
 import logininterface 1.0
 import QtGraphicalEffects 1.12
+import errorEnum 1.0
+
 Item {
     id: root
     width: 968
@@ -268,7 +270,7 @@ Item {
                     Image {
                         id: image2
                         anchors.fill: parent
-                        source: "image/loginBtn.svg"
+                        source: "qrc:image/loginBtn.svg"
                         fillMode: Image.PreserveAspectFit
                         ColorOverlay{
                             id :coloroverlay
@@ -285,19 +287,17 @@ Item {
                     hoverEnabled: true
                     property bool m_isEnter:false
                     onClicked: {
-                        //loginInterface.IsCanLogin(userName.text,password.text);
+                        var ret =  loginInterface.login(userName.text,password.text);
+                        var obj = JSON.parse(ret)
+                        console.log(obj["error"]["message"])
                     }
                     onEntered:{
                         m_isEnter = true
                         loginBtn.border.color= "#d6e0f1"
-                        //text4.color = "#000000"
-                        //coloroverlay.color = "#43474d"
                     }
                     onExited: {
                         m_isEnter = false
                         loginBtn.border.color= "#80d6e0f1"
-                        //text4.color = "#ffffff"
-                        //coloroverlay.color = "#a7c0dc"
                     }
                     onPressed: {
                         loginBtn.border.color="#5097ee"
@@ -469,7 +469,7 @@ Item {
         Image {
             id: closeimage
             anchors.fill: parent
-            source: "image/close.png"
+            source: "qrc:/image/close.png"
             cache: false
             fillMode: Image.PreserveAspectFit
             ColorOverlay{

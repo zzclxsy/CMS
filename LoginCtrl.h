@@ -9,10 +9,10 @@ public:
     LoginCtrl(QObject *parent = nullptr);
     ~LoginCtrl();
 
-    Q_INVOKABLE QString Login(QString userName, QString password);
-    Q_INVOKABLE QString Register(const QVariantList &userInfo);
-    Q_INVOKABLE QString JudgeSecurityQuestion(QString question, QString answer);
-    Q_INVOKABLE QString SetNewPassword(QString userName, QString password);
+    Q_INVOKABLE QString login(QString userName, QString password);
+    Q_INVOKABLE QString registerUser(const QVariantList &userInfo);
+    Q_INVOKABLE QString judgeSecurityQuestion(QString question, QString answer);
+    Q_INVOKABLE QString setNewPassword(QString userName, QString password);
 
 };
 

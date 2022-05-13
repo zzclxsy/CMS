@@ -35,7 +35,7 @@ Item {
             Image {
                 id: gohomeimage
                 anchors.fill: parent
-                source: "image/gohome.svg"
+                source: "qrc:image/gohome.svg"
                 mirror: false
                 sourceSize.height: 183
                 sourceSize.width: 176

@@ -18,7 +18,7 @@ Item {
 
     //主页面rect
     Rectangle {
-        id: rectangle
+        id: mainRect
         color: "#ffffff"
         anchors.fill: parent
         anchors.rightMargin: 0
@@ -38,9 +38,8 @@ Item {
             anchors.rightMargin: 0
             anchors.bottomMargin: 0
             anchors.topMargin: 0
-
+            //标题，CMS上位机
             TextEdit {
-                id: textEdit
                 width: 252
                 color: "#edebeb"
                 text: qsTr("CMS上位机")
@@ -58,7 +57,7 @@ Item {
             }
 
             Row {
-                id: row
+                id: userNamerow
                 x: 87
                 y: 200
                 width: 271
@@ -69,7 +68,6 @@ Item {
                 anchors.bottomMargin: 210
 
                 Text {
-                    id: text1
                     width: 83
                     height: 48
                     color: "#edebeb"
@@ -81,16 +79,14 @@ Item {
                 }
 
                 Rectangle {
-                    id: rectangle1
                     width: 187
                     height: 48
-                    color: "#00ffffff"
+                    color: "#00000000"
                     border.color: "#00000000"
                     border.width: 1
 
 
                     Rectangle {
-                        id: rectangle2
                         x: 1
                         y: 32
                         height: 1
@@ -142,7 +138,7 @@ Item {
             }
 
             Row {
-                id: row1
+                id: passwordrow
                 x: 39
                 y: 238
                 width: 271
@@ -153,15 +149,13 @@ Item {
 
 
                 Rectangle {
-                    id: rectangle4
                     x: 0
                     width: 189
                     height: 48
-                    color: "#00ffffff"
+                    color: "#00000000"
                     border.color: "#00000000"
                     border.width: 1
                     Rectangle {
-                        id: rectangle3
                         y: 31
                         height: 1
                         color: "#ffffff"
@@ -207,7 +201,6 @@ Item {
                 }
 
                 Text {
-                    id: text2
                     x: 0
                     width: 83
                     height: 48
@@ -220,8 +213,8 @@ Item {
                 }
             }
 
+            //英文全称标题
             Text {
-                id: text3
                 y: 131
                 height: 36
                 color: "#ffffff"
@@ -371,7 +364,7 @@ Item {
             }
 
             Rectangle {
-                id: rectangle6
+                id: forgetBtn
                 x: 8
                 y: 421
                 width: 72
@@ -474,15 +467,14 @@ Item {
         anchors.rightMargin: 0
 
         Image {
-            id: image1
+            id: closeimage
             anchors.fill: parent
             source: "image/close.png"
             cache: false
             fillMode: Image.PreserveAspectFit
             ColorOverlay{
-                id :coloroverlay2
-                anchors.fill: image1
-                source: image1
+                anchors.fill: closeimage
+                source: closeimage
                 color: "#a7c0dc"
             }
             MouseArea{

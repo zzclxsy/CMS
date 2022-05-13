@@ -7,12 +7,12 @@ Item {
     signal goHomeClicked()
     property point deltaPos: "0,0"  //定义一个点
     Rectangle {
-        id: rectangle
+        id: mainRect
         color: "#0d335d"
         anchors.fill: parent
 
         MouseArea{
-            anchors.fill: rectangle
+            anchors.fill: mainRect
             property point clickPos: "0,0"  //定义一个点
             onPressed: {
                 clickPos = Qt.point(mouseX, mouseY)
@@ -25,7 +25,7 @@ Item {
         }
 
         Rectangle {
-            id: rectangle1
+            id: gohomeRect
             x: 0
             y: 0
             width: 27
@@ -33,7 +33,7 @@ Item {
             color: "#00ffffff"
 
             Image {
-                id: image
+                id: gohomeimage
                 anchors.fill: parent
                 source: "image/gohome.svg"
                 mirror: false
@@ -42,8 +42,8 @@ Item {
                 fillMode: Image.Stretch
                 ColorOverlay{
                     id :coloroverlay
-                    anchors.fill: image
-                    source: image
+                    anchors.fill: gohomeimage
+                    source: gohomeimage
                     color: "#a7c0dc"
                 }
 
@@ -73,6 +73,8 @@ Item {
                 }
             }
         }
+
+
     }
 
 

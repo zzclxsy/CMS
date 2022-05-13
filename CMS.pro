@@ -10,11 +10,17 @@ CONFIG(debug, debug|release){
 } else {
     DESTDIR = $$PWD/../bin/release
 }
+HEADERS += \
+    loginCtrl.h \
+    sqlite/BaseSqliteAccess.h \
+    sqlite/SystemSqliteAccess.h
+
+
 SOURCES += \
-        loginCtrl.cpp \
-        main.cpp \
-        sqlite/baseSqliteAccess.cpp \
-        sqlite/systemSqliteAccess.cpp
+	loginCtrl.cpp \
+	main.cpp \
+	sqlite/BaseSqliteAccess.cpp \
+	sqlite/SystemSqliteAccess.cpp
 
 RESOURCES += qml.qrc \
     Resource.qrc
@@ -30,7 +36,3 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-HEADERS += \
-    loginCtrl.h \
-    sqlite/baseSqliteAccess.h \
-    sqlite/systemSqliteAccess.h

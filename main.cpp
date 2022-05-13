@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
 #endif
     QGuiApplication app(argc, argv);
 
-    qmlRegisterType<loginCtrl>("logininterface",1,0,"LoginInterface");
+    qmlRegisterType<LoginCtrl>("logininterface",1,0,"LoginInterface");
 
     QQmlApplicationEngine engine;
     const QUrl url(QStringLiteral("qrc:/main.qml"));

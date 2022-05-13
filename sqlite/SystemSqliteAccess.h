@@ -6,6 +6,8 @@
 typedef struct{
     QString userName;
     QString password;
+    QString question;
+    QString answer;
 } User_t;
 
 class SystemSqliteAccess : public BaseSqliteAccess
@@ -14,8 +16,12 @@ public:
     SystemSqliteAccess(QString dbName);
 
     //user_t表
-    bool InsertUserTable(User_t user);
+    bool    InsertUserTable(User_t user);
+    bool    isExistUserName(QString userName);
+    bool    UpdataUserInfo(User_t user);
+    User_t  GetUserInfo(QString userName);
     QString GetUserPassword(QString userName);
+    QString GetQuestionAnswer(QString question);
 
     static SystemSqliteAccess *instance(QString dbName = "./system.db");
 

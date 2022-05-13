@@ -2,14 +2,18 @@
 #define LOGINCTRL_H
 #include <QObject>
 
-class loginCtrl: public QObject
+class LoginCtrl: public QObject
 {
     Q_OBJECT
 public:
-    loginCtrl(QObject *parent = nullptr);
-    Q_INVOKABLE bool IsCanLogin(QString userName, QString password);
+    LoginCtrl(QObject *parent = nullptr);
+    ~LoginCtrl();
 
-    ~loginCtrl();
+    Q_INVOKABLE QString Login(QString userName, QString password);
+    Q_INVOKABLE QString Register(const QVariantList &userInfo);
+    Q_INVOKABLE QString JudgeSecurityQuestion(QString question, QString answer);
+    Q_INVOKABLE QString SetNewPassword(QString userName, QString password);
+
 };
 
 #endif // LOGINCTRL_H

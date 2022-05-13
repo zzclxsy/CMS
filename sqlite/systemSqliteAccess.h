@@ -1,14 +1,14 @@
 #ifndef SYSTEMSQLITEACCESS_H
 #define SYSTEMSQLITEACCESS_H
 
-#include "baseSqliteAccess.h"
+#include "BaseSqliteAccess.h"
 
 typedef struct{
     QString userName;
     QString password;
 } User_t;
 
-class SystemSqliteAccess : public baseSqliteAccess
+class SystemSqliteAccess : public BaseSqliteAccess
 {
 public:
     SystemSqliteAccess(QString dbName);

@@ -7,11 +7,11 @@
 #include <QString>
 #include <QObject>
 
-class baseSqliteAccess
+class BaseSqliteAccess
 {
 public:
-    baseSqliteAccess(QString databaseName);
-    ~baseSqliteAccess();
+    BaseSqliteAccess(QString databaseName);
+    ~BaseSqliteAccess();
 
 	static bool checkDatabaseVaild(QString pathName);
     void setFactory();

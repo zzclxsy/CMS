@@ -1,6 +1,6 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-#include "loginCtrl.h"
+#include "LoginCtrl.h"
 
 int main(int argc, char *argv[])
 {

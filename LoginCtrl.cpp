@@ -1,5 +1,5 @@
-#include "loginCtrl.h"
-#include "sqlite/systemSqliteAccess.h"
+#include "LoginCtrl.h"
+#include "sqlite/SystemSqliteAccess.h"
 #include <QDebug>
 loginCtrl::loginCtrl(QObject *parent):QObject(parent)
 {
@@ -7,13 +7,13 @@ loginCtrl::loginCtrl(QObject *parent):QObject(parent)
 }
 
 bool loginCtrl::IsCanLogin(QString userName, QString password)
-{
-    if (SystemSqliteAccess::instance()->GetUserPassword(userName) == "")
+{ 
+    if (SystemSqliteAccess::instance()->GetUserPassword(userName) == password)
     {
-        qDebug()<<"无该用户";
-        return false;
+        return true;
     }
-    return true;
+
+    return false;
 }
 
 loginCtrl::~loginCtrl()

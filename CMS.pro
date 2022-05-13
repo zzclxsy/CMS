@@ -11,13 +11,13 @@ CONFIG(debug, debug|release){
     DESTDIR = $$PWD/../bin/release
 }
 HEADERS += \
-    loginCtrl.h \
+    LoginCtrl.h \
     sqlite/BaseSqliteAccess.h \
     sqlite/SystemSqliteAccess.h
 
 
 SOURCES += \
-	loginCtrl.cpp \
+	LoginCtrl.cpp \
 	main.cpp \
 	sqlite/BaseSqliteAccess.cpp \
 	sqlite/SystemSqliteAccess.cpp

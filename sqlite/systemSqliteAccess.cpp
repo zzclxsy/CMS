@@ -1,7 +1,7 @@
-#include "systemSqliteAccess.h"
+#include "SystemSqliteAccess.h"
 #include <QDebug>
 SystemSqliteAccess *SystemSqliteAccess::mp_instance = nullptr;
-SystemSqliteAccess::SystemSqliteAccess(QString dbName):baseSqliteAccess(dbName)
+SystemSqliteAccess::SystemSqliteAccess(QString dbName):BaseSqliteAccess(dbName)
 {
     QStringList execStrs;
     execStrs << QString ("PRAGMA recursive_triggers = ON;");

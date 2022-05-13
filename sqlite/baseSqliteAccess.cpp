@@ -1,4 +1,4 @@
-#include "baseSqliteAccess.h"
+#include "BaseSqliteAccess.h"
 #include <QSqlError>
 #include <QSqlRecord>
 #include <QFile>
@@ -7,7 +7,7 @@
 #include <QDebug>
 #include <QDir>
 
-baseSqliteAccess::baseSqliteAccess(QString databaseName)
+BaseSqliteAccess::BaseSqliteAccess(QString databaseName)
 {
     m_filename = databaseName;
 
@@ -39,7 +39,7 @@ baseSqliteAccess::baseSqliteAccess(QString databaseName)
     db.close();
 }
 
-baseSqliteAccess::~baseSqliteAccess()
+BaseSqliteAccess::~BaseSqliteAccess()
 {
     m_mutex.lock();
     m_sqlQuery.finish();
@@ -47,7 +47,7 @@ baseSqliteAccess::~baseSqliteAccess()
     m_mutex.unlock();
 }
 
-bool baseSqliteAccess::checkDatabaseVaild(QString pathName)
+bool BaseSqliteAccess::checkDatabaseVaild(QString pathName)
 {
     //判断文件是否存在
     QDir dir;
@@ -80,7 +80,7 @@ bool baseSqliteAccess::checkDatabaseVaild(QString pathName)
     return true;
 }
 
-void baseSqliteAccess::setFactory()
+void BaseSqliteAccess::setFactory()
 {
     m_mutex.lock();
     m_sqlQuery.finish();
@@ -91,12 +91,12 @@ void baseSqliteAccess::setFactory()
     m_mutex.unlock();
 }
 
-QString baseSqliteAccess::connection() const
+QString BaseSqliteAccess::connection() const
 {
     return m_connection;
 }
 
-bool baseSqliteAccess::read(QString cmdStr, QList<QStringList> &result)
+bool BaseSqliteAccess::read(QString cmdStr, QList<QStringList> &result)
 {
     bool iRet = false;
 
@@ -134,7 +134,7 @@ bool baseSqliteAccess::read(QString cmdStr, QList<QStringList> &result)
     return iRet;
 }
 
-bool baseSqliteAccess::write(QString cmdStr)
+bool BaseSqliteAccess::write(QString cmdStr)
 {
     bool iRet = false;
 
@@ -159,7 +159,7 @@ bool baseSqliteAccess::write(QString cmdStr)
     return iRet;
 }
 
-bool baseSqliteAccess::transaction()
+bool BaseSqliteAccess::transaction()
 {
     if (m_database.isOpen())
         return m_database.transaction();
@@ -167,7 +167,7 @@ bool baseSqliteAccess::transaction()
     return false;
 }
 
-bool baseSqliteAccess::commit()
+bool BaseSqliteAccess::commit()
 {
     if (m_database.isOpen())
         return m_database.commit();
@@ -175,7 +175,7 @@ bool baseSqliteAccess::commit()
     return false;
 }
 
-QString baseSqliteAccess::baseName() const
+QString BaseSqliteAccess::baseName() const
 {
     return m_database.databaseName();
 }

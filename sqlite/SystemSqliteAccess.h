@@ -19,9 +19,13 @@ public:
     bool    InsertUserTable(User_t user);
     bool    isExistUserName(QString userName);
     bool    UpdataUserInfo(User_t user);
+    bool    deleteUserByUserName(QString userName);
+
     User_t  GetUserInfo(QString userName);
     QString GetUserPassword(QString userName);
-    QString GetQuestionAnswer(QString question);
+    QString GetQuestionAnswer(QString userName, QString question);
+    QList<QString> GetAllUserName();
+
 
     static SystemSqliteAccess *instance(QString dbName = "./system.db");
 

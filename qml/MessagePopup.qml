@@ -10,26 +10,67 @@ Popup{
     modal: true
     focus: true
     closePolicy: Popup.CloseOnEscape
+    property int g_affirm: 0
+    property int g_close: 1
+    property int g_cancel: 2
 
-    function warnMessage(info)
+    property var g_callback
+
+    function showBtn(closeBtnShow, cancelBtnShow)
     {
-        row.width = 210
-        closeBtn.visible = false
-        cancelBtn.visible = true
-        infoInput.text = info
-        popup.open()
-        console.log("ddddd")
+        var length = 100
+        if (closeBtnShow)
+        {
+            length = 210
+            cancelBtnShow = false
+        }
+        else if (cancelBtnShow)
+        {
+            length = 210
+            closeBtnShow = false
+        }
+
+        row.width = length
+        closeBtn.visible = closeBtnShow
+        cancelBtn.visible = cancelBtnShow
     }
 
-    function informMessage(info)
+    function warnMessage(info, callback, closeBtnShow = false,cancelBtnShow = false)
     {
-        row.width = 100
-        closeBtn.visible = false
-        cancelBtn.visible = false
+        if (callback === undefined)
+            callback = ()=>{}
+
+        showBtn(closeBtnShow, cancelBtnShow)
+        infoIcomImage.source="qrc:/image/warn.svg"
         infoInput.text = info
+        g_callback = callback
         popup.open()
     }
 
+    function informMessage(info, callback, closeBtnShow = false,cancelBtnShow = false)
+    {
+        if (callback === undefined)
+            callback = ()=>{}
+
+        showBtn(closeBtnShow, cancelBtnShow)
+        infoIcomImage.source = "qrc:/image/info.svg"
+        infoInput.text = info
+        g_callback = callback
+        popup.open()
+
+    }
+
+    function errorMessage(info, callback, closeBtnShow = false,cancelBtnShow = false)
+    {
+        if (callback === undefined)
+            callback = ()=>{}
+
+        showBtn(closeBtnShow, cancelBtnShow)
+        infoIcomImage.source = "qrc:/image/errorInfo.svg"
+        infoInput.text = info
+        g_callback = callback
+        popup.open()
+    }
 
     contentItem: Rectangle{
         id: rectangle1
@@ -46,12 +87,12 @@ Popup{
             color: "#00165194"
 
             Image {
-                id: image
+                id: infoIcomImage
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
-                source: "qrc:/image/warn.svg"
+                source: ""
                 anchors.rightMargin: 111
                 anchors.leftMargin: 101
                 anchors.bottomMargin: 3
@@ -104,6 +145,7 @@ Popup{
                         }
 
                         onClicked: {
+                            g_callback(g_cancel)
                             close()
                         }
                     }
@@ -121,6 +163,8 @@ Popup{
             text: qsTr("wrong password")
             font.pixelSize: 26
             horizontalAlignment: Text.AlignHCenter
+            wrapMode: Text.WordWrap
+            clip:true
         }
         Row {
             id: row
@@ -135,7 +179,7 @@ Popup{
             Rectangle {
                 id: affirmBtn
                 color: "#00ffffff"
-                border.color: "#49a8fa"
+                border.color: "#80d6e0f1"
                 border.width: 1
                 x:0
                 width: 100
@@ -149,13 +193,40 @@ Popup{
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                 }
+                MouseArea {
+                    hoverEnabled: true
+                    property bool m_isEnter: false
+                    anchors.fill: parent
+                    onEntered: {
+                        m_isEnter = true
+                        affirmBtn.border.color= "#d6e0f1"
+                     }
+                    onExited: {
+                        m_isEnter = false
+                        affirmBtn.border.color= "#80d6e0f1"
+                    }
+                    onPressed: {
+                        affirmBtn.border.color="#5097ee"
+                    }
+                    onReleased: {
+                        if (m_isEnter == true)
+                            affirmBtn.border.color="#d6e0f1"
+                    }
+
+                    onClicked: {
+                            console.log("affirmBtn")
+                            g_callback(g_affirm)
+                            close()
+                    }
+                }
+
             }
 
 
             Rectangle {
                 id: closeBtn
                 color: "#00ffffff"
-                border.color: "#49a8fa"
+                border.color: "#80d6e0f1"
                 border.width: 1
                 x:110
                 width: 100
@@ -169,12 +240,39 @@ Popup{
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                 }
+
+                MouseArea {
+                    hoverEnabled: true
+                    property bool m_isEnter: false
+                    anchors.fill: parent
+                    onEntered: {
+                        m_isEnter = true
+                        closeBtn.border.color= "#d6e0f1"
+                    }
+                    onExited: {
+                        m_isEnter = false
+                        closeBtn.border.color= "#80d6e0f1"
+                    }
+                    onPressed: {
+                        closeBtn.border.color="#5097ee"
+                    }
+                    onReleased: {
+                        if (m_isEnter == true)
+                            closeBtn.border.color="#d6e0f1"
+                    }
+
+                    onClicked: {
+                            console.log("closeBtn")
+                            g_callback(g_close)
+                            close()
+                    }
+                }
             }
 
             Rectangle {
                 id: cancelBtn
                 color: "#00ffffff"
-                border.color: "#49a8fa"
+                border.color: "#80d6e0f1"
                 border.width: 1
                 visible: false
                 x:110
@@ -189,6 +287,35 @@ Popup{
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                 }
+
+                MouseArea {
+                    hoverEnabled: true
+                    property bool m_isEnter: false
+                    anchors.fill: parent
+                    onEntered: {
+                        m_isEnter = true
+                        cancelBtn.border.color= "#d6e0f1"
+                    }
+                    onExited: {
+                        m_isEnter = false
+                        cancelBtn.border.color= "#80d6e0f1"
+                    }
+                    onPressed: {
+                        cancelBtn.border.color="#5097ee"
+                    }
+                    onReleased: {
+                        if (m_isEnter == true)
+                            cancelBtn.border.color="#d6e0f1"
+                    }
+
+                    onClicked: {
+                            console.log("cancelBtn")
+                            g_callback(g_cancel)
+                            close()
+                    }
+                }
+
+
             }
 
 

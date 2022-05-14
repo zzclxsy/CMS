@@ -5,5 +5,7 @@
         <file>qml/Register.qml</file>
         <file>qml/dealErrorInfo.js</file>
         <file>qml/MessagePopup.qml</file>
+        <file>qml/ForgetPassword.qml</file>
+        <file>qml/OperationUI.qml</file>
     </qresource>
 </RCC>

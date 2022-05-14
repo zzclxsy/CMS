@@ -16,6 +16,7 @@ public:
         UserNameNotExist,       //用户名不存在
         UserCreateError,        //用户注册失败
         UserInfoUpdataError,    //用户信息更新错误
+        ParameterNotFillOut,    //参数未全部填写完成
     }e_ErrorCode;
 
     Q_ENUM(e_ErrorCode)

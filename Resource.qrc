@@ -9,5 +9,7 @@
         <file>image/arrow-down.svg</file>
         <file>image/arrow-up.svg</file>
         <file>image/warn.svg</file>
+        <file>image/info.svg</file>
+        <file>image/errorInfo.svg</file>
     </qresource>
 </RCC>

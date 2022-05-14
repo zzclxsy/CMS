@@ -1,5 +1,4 @@
 #include "LoginCtrl.h"
-#include "sqlite/SystemSqliteAccess.h"
 #include <QDebug>
 #include <QJsonObject>
 #include <QJsonDocument>
@@ -11,8 +10,11 @@ LoginCtrl::LoginCtrl(QObject *parent):QObject(parent)
 {
     SystemSqliteAccess::instance();
     mp_userModel = new UserModel;
-    mp_userModel->appendRow(new QStandardItem("1255622652232"));
-    mp_userModel->appendRow(new QStandardItem("dddasdasdasdas"));
+    SystemSqliteAccess *dataBase = SystemSqliteAccess::instance();
+    for(QString name :dataBase->GetAllUserName())
+    {
+        mp_userModel->appendRow(new QStandardItem(name));
+    }
 }
 
 LoginCtrl::~LoginCtrl()
@@ -65,6 +67,13 @@ QString LoginCtrl::registerUser(const QVariantList &userInfo)
 
     do
     {
+        if (user.userName.isEmpty() || user.password.isEmpty() || user.question.isEmpty()
+                || user.answer.isEmpty())
+        {
+            error["code"] = ErrorEnum::ParameterNotFillOut;
+            error["message"] = "参数未全部填写完成，注册失败";
+            break;
+        }
         if (dataBase->isExistUserName(user.userName))
         {
             error["code"] = ErrorEnum::UserNameExist;
@@ -79,6 +88,7 @@ QString LoginCtrl::registerUser(const QVariantList &userInfo)
             break;
         }
 
+        mp_userModel->appendRow(new QStandardItem(user.userName));
         return QString("");
     }while(0);
 
@@ -86,17 +96,29 @@ QString LoginCtrl::registerUser(const QVariantList &userInfo)
     return Utility::JsonToString(root);
 }
 
-QString LoginCtrl::judgeSecurityQuestion(QString question, QString answer)
+QString LoginCtrl::judgeSecurityQuestion(QString userName, QString question, QString answer)
 {
     QJsonObject root;
     QJsonObject error;
 
-    if (SystemSqliteAccess::instance()->GetQuestionAnswer(question) == answer)
+    do
     {
+        if (question.isEmpty() || answer.isEmpty())
+        {
+            error["code"] = ErrorEnum::ParameterNotFillOut;
+            error["message"] = "参数未全部填写完成，修改失败";
+            break;
+        }
+        if (SystemSqliteAccess::instance()->GetQuestionAnswer(userName, question) != answer)
+        {
+            error["code"] = ErrorEnum::AnswerError;
+            error["message"] = "密保答案错误，修改失败";
+            break;
+        }
+
         return QString("");
-    }
-    error["code"] = ErrorEnum::AnswerError;
-    error["message"] = "答案错误";
+    }while(0);
+
     root["error"] = error;
     return Utility::JsonToString(root);
 }
@@ -110,6 +132,13 @@ QString LoginCtrl::setNewPassword(QString userName, QString password)
 
     do
     {
+        if (userName.isEmpty() || password.isEmpty())
+        {
+            error["code"] = ErrorEnum::ParameterNotFillOut;
+            error["message"] = "参数未全部填写完成，修改失败";
+            break;
+        }
+
         if (!dataBase->isExistUserName(userName))
         {
             error["code"] = ErrorEnum::UserNameNotExist;

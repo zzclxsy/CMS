@@ -10,13 +10,19 @@ Item {
     y:0
     signal closeLogin()
     signal registerClicked()
+    signal forgetClicked(var name);
+    signal loginSucceed()
     property point deltaPos: "0,0"  //定义一个点
     state: "normal"
 
     MessagePopup{
         id:popup
     }
-
+    function closeUserList()
+    {
+        listView.visible = false
+        arrowimage.source = "qrc:/image/arrow-down.svg"
+    }
 
     //主页面rect
     Rectangle {
@@ -43,8 +49,7 @@ Item {
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
-                    listView.visible = false
-                    arrowimage.source = "qrc:/image/arrow-down.svg"
+                    closeUserList()
                 }
             }
 
@@ -175,6 +180,9 @@ Item {
                             }
 
                             onClicked: {
+                                if (UsersModel.count() === 0)
+                                    return
+
                                 if (listView.visible)
                                 {
                                     listView.visible = false
@@ -348,14 +356,23 @@ Item {
                     anchors.fill: loginBtn
                     hoverEnabled: true
                     property bool m_isEnter:false
-                    onClicked: {
-                        //                        var ret =  Logindata.login(userName.text,password.text);
-                        //                        var obj = JSON.parse(ret)
-                        //                        console.log(obj["error"]["message"])
-                        //                            Logindata.clear("5555")
+                    function loginFail(result)
+                    {
+                        console.log(result)
+                    }
 
-                        //                        UsersModel.deleteRow(0)
-                        popup.warnMessage("这是一个警告测速")
+                    onClicked: {
+                        var ret =  Logindata.login(userName.text,password.text);
+                        if (ret !== "")
+                        {
+                            var obj = JSON.parse(ret)
+                            popup.errorMessage(obj["error"]["message"],loginFail)
+                        }
+                        else
+                        {
+                            loginSucceed()
+                        }
+
                     }
                     onEntered:{
                         m_isEnter = true
@@ -408,6 +425,7 @@ Item {
                         hoverEnabled: true
                         onClicked: {
                             registerClicked()
+                            closeUserList()
                         }
 
                         onEntered:{
@@ -454,7 +472,14 @@ Item {
                         hoverEnabled: true
                         property bool m_isEnter:false
                         onClicked: {
-                            registerClicked()
+                            if (userName.text === "")
+                            {
+                                popup.warnMessage("请输入账号")
+                                return
+                            }
+
+                            closeUserList()
+                            forgetClicked(userName.text)
                         }
 
                         onEntered:{
@@ -484,6 +509,11 @@ Item {
                 height: 160
                 visible: false
                 clip:true
+                ScrollBar.vertical: ScrollBar
+                {
+                    id: scrollBar
+                }
+
                 delegate: Item {
                     x:0
                     width: 179
@@ -496,9 +526,20 @@ Item {
                             width: listView.width
                             height: 40
                             color: "#becfd5"
+                            MouseArea{
+                                anchors.fill: parent
+                                hoverEnabled: true
+                                onEntered: {
+                                    cursorShape = Qt.PointingHandCursor
+                                }
+                                onExited: {
+                                    cursorShape = Qt.ArrowCursor
+                                }
+                            }
 
                             Text {
-                                text: name
+                                text: display
+                                width: rectangle3.width - 10
                                 anchors.left: parent.left
                                 anchors.right: parent.right
                                 anchors.top: parent.top
@@ -506,8 +547,7 @@ Item {
                                 font.pixelSize: 21
                                 horizontalAlignment: Text.AlignLeft
                                 verticalAlignment: Text.AlignVCenter
-                                minimumPixelSize: 17
-                                anchors.rightMargin: 39
+                                anchors.rightMargin: 30
                                 anchors.leftMargin: 8
                                 anchors.bottomMargin: 0
                                 anchors.topMargin: 0
@@ -521,7 +561,7 @@ Item {
                                     }
                                     onExited: {
                                         rectangle3.color ="#becfd5"
-                                        cursorShape = Qt.Qt.ArrowCursor
+                                        cursorShape = Qt.ArrowCursor
                                     }
                                     onPressed: {
                                         rectangle3.color="#BDBDBD"
@@ -531,16 +571,15 @@ Item {
                                     }
 
                                     onClicked: {
-                                        console.log("叉掉:",index)
+                                        userName.text = display
+                                        closeUserList()
                                     }
                                 }
                             }
 
-
-
                             Image {
                                 id: listimageclose
-                                x: 159
+                                x: 154
                                 y: 8
                                 width: 19
                                 height: 24
@@ -560,13 +599,11 @@ Item {
                                 hoverEnabled: true
                                 onEntered: {
                                     imageclose.color="#e1453c"
-                                    //rectangle3.color ="#ecf2f4"
                                     cursorShape = Qt.PointingHandCursor
                                 }
                                 onExited: {
                                     imageclose.color="#638cba"
-                                    //rectangle3.color ="#becfd5"
-                                    cursorShape = Qt.Qt.ArrowCursor
+                                    cursorShape = Qt.ArrowCursor
                                 }
                                 onPressed: {
                                     imageclose.color="#e58a84"
@@ -574,23 +611,25 @@ Item {
                                 onReleased: {
                                     imageclose.color="#e1453c"
                                 }
+                                function isDelUser(result)
+                                {
+                                    if (result === 0)
+                                    {
+                                        UsersModel.deleteRow(index)
+                                        if (UsersModel.count() === 0)
+                                            closeUserList()
+                                    }
+                                }
 
                                 onClicked: {
-                                    console.log("叉掉:",index)
+                                    popup.warnMessage("是否删除该账号",isDelUser,false,true)
                                 }
                             }
 
                         }
                     }
                 }
-                model: ListModel{
-                    ListElement{
-                        name:"44"
-                    }
-                    ListElement{
-                        name:"eee"
-                    }
-                }
+                model:UsersModel
 
 
             }
@@ -731,6 +770,6 @@ Item {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.9}
+    D{i:0;formeditorZoom:0.8999999761581421}
 }
 ##^##*/

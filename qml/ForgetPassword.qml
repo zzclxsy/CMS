@@ -6,16 +6,20 @@ Item {
     state: "hide"
     signal goHomeClicked()
     property point deltaPos: "0,0"  //定义一个点
+    property var userName
+    function getUserName(name)
+    {
+        question.text = UsersModel.getQuestion((name))
+        userName = name
+    }
 
     function clearPageData()
     {
-        userName.text = ""
         question.text = ""
         answer.text = ""
         password.text = ""
-        userName.focus = true
+        answer.focus = true
     }
-
 
     MessagePopup{
         id:popup
@@ -44,105 +48,25 @@ Item {
                 id: rectangle
                 x: 186
                 y: 92
-                width: 294
+                width: 316
                 height: 250
                 color: "#00f93d3d"
                 anchors.horizontalCenter: parent.horizontalCenter
 
                 Row {
-                    id: userNamerow
-                    x: 87
-                    y: 37
-                    width: 287
-                    height: 40
-                    anchors.bottom: parent.bottom
-                    anchors.horizontalCenterOffset: 1
-                    anchors.bottomMargin: 219
-                    Text {
-                        width: 83
-                        height: 48
-                        color: "#edebeb"
-                        text: qsTr("Account")
-                        font.pixelSize: 17
-                        horizontalAlignment: Text.AlignLeft
-                        verticalAlignment: Text.AlignVCenter
-                        minimumPixelSize: 33
-                    }
-
-                    Rectangle {
-                        width: 200
-                        height: 48
-                        color: "#00000000"
-                        border.color: "#00000000"
-                        border.width: 1
-                        Rectangle {
-                            id: bottomLine
-                            x: 1
-                            y: 32
-                            width: 197
-                            height: 1
-                            color: "#ffffff"
-                        }
-
-                        MouseArea {
-                            anchors.fill: userName
-                            cursorShape: Qt.IBeamCursor
-                        }
-
-                        TextInput {
-                            id: userName
-                            y: 10
-                            width: 198
-                            height: 24
-                            color: "#ffffff"
-                            font.pixelSize: 18
-                            horizontalAlignment: Text.AlignLeft
-                            verticalAlignment: Text.AlignVCenter
-                            overwriteMode: false
-                            mouseSelectionMode: TextInput.SelectWords
-                            maximumLength: 32767
-                            activeFocusOnPress: true
-                            selectByMouse: true
-                            selectedTextColor: "#b9bdc1"
-                            selectionColor: "#3d85ac"
-                            cursorVisible: false
-                            clip: true
-                            onFocusChanged: {
-                                if (userName.focus == true)
-                                    bottomLine.color = "#5097ee"
-                                else
-                                    bottomLine.color = "#ffffff"
-                            }
-                            validator: RegExpValidator {
-                                regExp: /[0-9A-Za-z]+/
-                            }
-                            Keys.onTabPressed: {
-                                password.focus = true
-                            }
-                            persistentSelection: false
-                            font.hintingPreference: Font.PreferDefaultHinting
-                            passwordCharacter: "\u25cf"
-                            autoScroll: true
-                            renderType: Text.QtRendering
-                        }
-                    }
-                    anchors.horizontalCenter: parent.horizontalCenter
-                }
-
-                Row {
                     id: userNamerow2
                     x: 88
-                    y: 88
+                    y: 112
                     width: 287
                     height: 40
                     anchors.bottom: parent.bottom
-                    anchors.bottomMargin: 168
-                    anchors.horizontalCenterOffset: 1
+                    anchors.bottomMargin: 98
+                    anchors.horizontalCenterOffset: -3
                     Text {
-                        width: 83
+                        width: 108
                         height: 48
                         color: "#edebeb"
-                        text: qsTr("Password")
+                        text: qsTr("NewPassword")
                         font.pixelSize: 17
                         horizontalAlignment: Text.AlignLeft
                         verticalAlignment: Text.AlignVCenter
@@ -150,6 +74,7 @@ Item {
                     }
 
                     Rectangle {
+                        x: 0
                         width: 200
                         height: 48
                         color: "#00000000"
@@ -197,7 +122,7 @@ Item {
                                 regExp: /[0-9A-Za-z]+/
                             }
                             Keys.onTabPressed: {
-                                question.focus = true
+                                answer.focus = true
                             }
                             persistentSelection: false
                             font.hintingPreference: Font.PreferDefaultHinting
@@ -212,14 +137,14 @@ Item {
                 Row {
                     id: userNamerow3
                     x: 86
-                    y: 140
+                    y: 8
                     width: 287
                     height: 40
                     anchors.bottom: parent.bottom
-                    anchors.bottomMargin: 116
-                    anchors.horizontalCenterOffset: 1
+                    anchors.bottomMargin: 202
+                    anchors.horizontalCenterOffset: -3
                     Text {
-                        width: 83
+                        width: 108
                         height: 48
                         color: "#edebeb"
                         text: qsTr("Question")
@@ -259,6 +184,7 @@ Item {
                             font.pixelSize: 18
                             horizontalAlignment: Text.AlignLeft
                             verticalAlignment: Text.AlignVCenter
+                            readOnly: true
                             overwriteMode: false
                             mouseSelectionMode: TextInput.SelectWords
                             maximumLength: 32767
@@ -269,15 +195,7 @@ Item {
                             selectionColor: "#3d85ac"
                             cursorVisible: false
                             clip: true
-                            onFocusChanged: {
-                                if (question.focus == true)
-                                    bottomLine3.color = "#5097ee"
-                                else
-                                    bottomLine3.color = "#ffffff"
-                            }
-                            Keys.onTabPressed: {
-                                answer.focus = true
-                            }
+
                             persistentSelection: false
                             font.hintingPreference: Font.PreferDefaultHinting
                             passwordCharacter: "\u25cf"
@@ -291,14 +209,14 @@ Item {
                 Row {
                     id: userNamerow1
                     x: 84
-                    y: 191
+                    y: 60
                     width: 287
                     height: 40
                     anchors.bottom: parent.bottom
-                    anchors.bottomMargin: 65
-                    anchors.horizontalCenterOffset: 1
+                    anchors.bottomMargin: 150
+                    anchors.horizontalCenterOffset: -3
                     Text {
-                        width: 83
+                        width: 108
                         height: 48
                         color: "#edebeb"
                         text: qsTr("Answer")
@@ -318,7 +236,7 @@ Item {
                             id: bottomLine1
                             x: 1
                             y: 32
-                            width: 193
+                            width: 194
                             height: 1
                             color: "#ffffff"
                         }
@@ -356,7 +274,7 @@ Item {
                             }
 
                             Keys.onTabPressed: {
-                                userName.focus = true
+                                password.focus = true
                             }
                             persistentSelection: false
                             font.hintingPreference: Font.PreferDefaultHinting
@@ -383,7 +301,7 @@ Item {
                 Text {
                     id: text4
                     color: "#ffffff"
-                    text: qsTr("Register")
+                    text: qsTr("Affirm")
                     anchors.fill: parent
                     font.pixelSize: 15
                     horizontalAlignment: Text.AlignHCenter
@@ -411,8 +329,7 @@ Item {
                     }
                     hoverEnabled: true
                     onClicked: {
-                        var userInfo = [userName.text, password.text,question.text,answer.text]
-                        var ret =  Logindata.registerUser(userInfo);
+                        var ret =  Logindata.judgeSecurityQuestion(userName, question.text, answer.text);
                         if (ret !== "")
                         {
                             var obj = JSON.parse(ret)
@@ -420,7 +337,14 @@ Item {
                         }
                         else
                         {
-                            popup.informMessage("注册成功")
+                            var ret2 = Logindata.setNewPassword(userName, password.text)
+                            if (ret2 !== "")
+                            {
+                                var obj2 = JSON.parse(ret2)
+                                popup.errorMessage(obj2["error"]["message"])
+                            }
+                            else
+                                popup.informMessage("修改成功")
                         }
                     }
                 }
@@ -523,6 +447,6 @@ Item {
 
 /*##^##
 Designer {
-    D{i:0;autoSize:true;height:480;width:640}D{i:31}D{i:30}
+    D{i:0;autoSize:true;height:480;width:640}
 }
 ##^##*/

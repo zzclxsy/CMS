@@ -57,10 +57,10 @@ QString SystemSqliteAccess::GetUserPassword(QString userName)
     return retList.at(0).at(0);
 }
 
-QString SystemSqliteAccess::GetQuestionAnswer(QString question)
+QString SystemSqliteAccess::GetQuestionAnswer(QString userName, QString question)
 {
-    QString exec = QString ("select userAnswer from user_tb where userQuestion = '%1';")
-            .arg(question);
+    QString exec = QString ("select userAnswer from user_tb where userQuestion = '%1' and userName = '%2';")
+            .arg(question).arg(userName);
 
     QList<QStringList> retList;
 
@@ -68,6 +68,23 @@ QString SystemSqliteAccess::GetQuestionAnswer(QString question)
             return QString("");
 
     return retList.at(0).at(0);
+}
+
+QList<QString> SystemSqliteAccess::GetAllUserName()
+{
+    QString exec = QString ("select userName from user_tb;");
+
+    QList<QString> userList;
+    QList<QStringList> retList;
+
+    if (read(exec, retList) == false || retList.count() == 0)
+            return userList;
+
+    for(QStringList list: retList)
+    {
+        userList.append(list.first());
+    }
+    return userList;
 }
 
 bool SystemSqliteAccess::isExistUserName(QString userName)
@@ -85,15 +102,18 @@ bool SystemSqliteAccess::isExistUserName(QString userName)
 
 bool SystemSqliteAccess::UpdataUserInfo(User_t user)
 {
-    QString exec = QString ("update user_tb set userPassword='%1',userQuestion='%2',userAnswer='%3' where userName = '%1';")
+    QString exec = QString ("update user_tb set userPassword='%1',userQuestion='%2',userAnswer='%3' where userName = '%4';")
             .arg(user.password).arg(user.question).arg(user.answer).arg(user.userName);
 
-    QList<QStringList> retList;
+    return write(exec);
+}
 
-    if (read(exec, retList) == false || retList.count() == 0)
-            return false;
+bool SystemSqliteAccess::deleteUserByUserName(QString userName)
+{
+    QString execStr = QString("delete from user_tb where userName='%1';")
+                .arg(userName);
 
-    return true;
+    return write(execStr);
 }
 
 User_t SystemSqliteAccess::GetUserInfo(QString userName)

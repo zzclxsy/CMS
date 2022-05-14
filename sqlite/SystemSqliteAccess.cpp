@@ -38,7 +38,7 @@ SystemSqliteAccess::SystemSqliteAccess(QString dbName):BaseSqliteAccess(dbName)
 //user_tb
 bool SystemSqliteAccess::InsertUserTable(User_t user)
 {
-    QString exec = QString ("insert into user_tb values('%1', '%2','%3', '%4');")
+    QString exec = QString ("insert into user_tb values(NULL,'%1', '%2','%3', '%4');")
             .arg(user.userName).arg(user.password).arg(user.question).arg(user.answer);
 
     return write(exec);

@@ -2,8 +2,8 @@
     <qresource prefix="/">
         <file>qml/Login.qml</file>
         <file>qml/main.qml</file>
-        <file>qml/PopupPanel.qml</file>
         <file>qml/Register.qml</file>
         <file>qml/dealErrorInfo.js</file>
+        <file>qml/MessagePopup.qml</file>
     </qresource>
 </RCC>

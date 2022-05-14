@@ -1,8 +1,6 @@
-import QtQuick 2.0
 import QtQuick.Controls 2.5
-import logininterface 1.0
 import QtGraphicalEffects 1.12
-import errorEnum 1.0
+import QtQuick 2.12
 
 Item {
     id: root
@@ -14,9 +12,11 @@ Item {
     signal registerClicked()
     property point deltaPos: "0,0"  //定义一个点
     state: "normal"
-    LoginInterface{
-        id:loginInterface
+
+    MessagePopup{
+        id:popup
     }
+
 
     //主页面rect
     Rectangle {
@@ -40,8 +40,16 @@ Item {
             anchors.rightMargin: 0
             anchors.bottomMargin: 0
             anchors.topMargin: 0
+            MouseArea{
+                anchors.fill: parent
+                onClicked: {
+                    listView.visible = false
+                    arrowimage.source = "qrc:/image/arrow-down.svg"
+                }
+            }
+
             //标题，CMS上位机
-            TextEdit {
+            Text{
                 width: 252
                 color: "#edebeb"
                 text: qsTr("CMS上位机")
@@ -51,7 +59,6 @@ Item {
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 anchors.horizontalCenter: parent.horizontalCenter
-                readOnly: true
                 anchors.bottomMargin: 273
                 anchors.topMargin: 34
                 textFormat: Text.PlainText
@@ -89,40 +96,36 @@ Item {
 
 
                     Rectangle {
+                        id:bottomLine
                         x: 1
                         y: 32
+                        width: 183
                         height: 1
                         color: "#ffffff"
-                        anchors.left: parent.left
-                        anchors.right: parent.right
-                        anchors.leftMargin: 0
-                        anchors.rightMargin: 0
                     }
 
                     MouseArea{
                         anchors.fill: userName
                         cursorShape:Qt.IBeamCursor
-
                     }
                     TextInput {
                         id: userName
                         y: 10
+                        width: 165
                         height: 24
                         color: "#ffffff"
                         anchors.left: parent.left
-                        anchors.right: parent.right
                         font.pixelSize: 18
                         horizontalAlignment: Text.AlignLeft
                         verticalAlignment: Text.AlignVCenter
                         maximumLength: 32767
                         passwordCharacter: "\u25cf"
-                        inputMask: ""
+                        validator: RegExpValidator{regExp: /[0-9A-Za-z]+/}
                         font.hintingPreference: Font.PreferDefaultHinting
                         persistentSelection: false
                         activeFocusOnPress: true
                         autoScroll: true
                         overwriteMode: false
-                        anchors.rightMargin: 0
                         anchors.leftMargin: 0
                         renderType: Text.QtRendering
                         selectByMouse: true
@@ -133,6 +136,56 @@ Item {
                         mouseSelectionMode: TextInput.SelectWords
                         Keys.onTabPressed: {
                             password.focus = true
+                        }
+                        onFocusChanged: {
+                            if (userName.focus == true)
+                                bottomLine.color = "#5097ee"
+                            else
+                                bottomLine.color = "#ffffff"
+                        }
+                    }
+
+                    Rectangle {
+                        id: downBtn
+                        x: 167
+                        y: 10
+                        width: 17
+                        height: 23
+                        color: "#00ffffff"
+
+                        Image {
+                            id: arrowimage
+                            anchors.fill: parent
+                            source: "qrc:/image/arrow-down.svg"
+                            fillMode: Image.PreserveAspectFit
+                            ColorOverlay{
+                                anchors.fill: arrowimage
+                                source: arrowimage
+                                color: "#a7c0dc"
+                            }
+                        }
+                        MouseArea{
+                            anchors.fill: parent
+                            hoverEnabled: true
+                            onEntered: {
+                                cursorShape = Qt.PointingHandCursor
+                            }
+                            onExited: {
+                                cursorShape = Qt.ArrowCursor
+                            }
+
+                            onClicked: {
+                                if (listView.visible)
+                                {
+                                    listView.visible = false
+                                    arrowimage.source = "qrc:/image/arrow-down.svg"
+                                }
+                                else
+                                {
+                                    listView.visible = true
+                                    arrowimage.source = "qrc:/image/arrow-up.svg"
+                                }
+                            }
                         }
                     }
                 }
@@ -158,6 +211,7 @@ Item {
                     border.color: "#00000000"
                     border.width: 1
                     Rectangle {
+                        id:bottomLine2
                         y: 31
                         height: 1
                         color: "#ffffff"
@@ -196,8 +250,16 @@ Item {
                         selectByMouse: true
                         cursorVisible: false
                         clip: true //设置此属性
+                        validator: RegExpValidator{regExp: /[0-9A-Za-z]+/}
                         Keys.onTabPressed: {
                             userName.focus = true
+                        }
+
+                        onFocusChanged: {
+                            if (password.focus == true)
+                                bottomLine2.color = "#5097ee"
+                            else
+                                bottomLine2.color = "#ffffff"
                         }
                     }
                 }
@@ -287,9 +349,13 @@ Item {
                     hoverEnabled: true
                     property bool m_isEnter:false
                     onClicked: {
-                        var ret =  loginInterface.login(userName.text,password.text);
-                        var obj = JSON.parse(ret)
-                        console.log(obj["error"]["message"])
+                        //                        var ret =  Logindata.login(userName.text,password.text);
+                        //                        var obj = JSON.parse(ret)
+                        //                        console.log(obj["error"]["message"])
+                        //                            Logindata.clear("5555")
+
+                        //                        UsersModel.deleteRow(0)
+                        popup.warnMessage("这是一个警告测速")
                     }
                     onEntered:{
                         m_isEnter = true
@@ -326,7 +392,7 @@ Item {
                     id: text5
                     text: qsTr("Register")
                     anchors.fill: parent
-                    font.pixelSize: 12
+                    font.pixelSize: 14
                     horizontalAlignment: Text.AlignRight
                     verticalAlignment: Text.AlignVCenter
                     color: "#80d6e0f1"
@@ -373,9 +439,9 @@ Item {
 
                 Text {
                     id: text6
-                    text: qsTr("Forget")
+                    text: qsTr("Forget？")
                     anchors.fill: parent
-                    font.pixelSize: 12
+                    font.pixelSize: 14
                     horizontalAlignment: Text.AlignLeft
                     verticalAlignment: Text.AlignVCenter
                     color: "#80d6e0f1"
@@ -408,6 +474,125 @@ Item {
                         }
                     }
                 }
+            }
+
+            ListView {
+                id: listView
+                x: 125
+                y: 238
+                width: 180
+                height: 160
+                visible: false
+                clip:true
+                delegate: Item {
+                    x:0
+                    width: 179
+                    height: 40
+                    Row {
+                        id: row1
+                        padding: 0
+                        Rectangle {
+                            id: rectangle3
+                            width: listView.width
+                            height: 40
+                            color: "#becfd5"
+
+                            Text {
+                                text: name
+                                anchors.left: parent.left
+                                anchors.right: parent.right
+                                anchors.top: parent.top
+                                anchors.bottom: parent.bottom
+                                font.pixelSize: 21
+                                horizontalAlignment: Text.AlignLeft
+                                verticalAlignment: Text.AlignVCenter
+                                minimumPixelSize: 17
+                                anchors.rightMargin: 39
+                                anchors.leftMargin: 8
+                                anchors.bottomMargin: 0
+                                anchors.topMargin: 0
+                                clip: true
+                                MouseArea{
+                                    anchors.fill: parent
+                                    hoverEnabled: true
+                                    onEntered: {
+                                        rectangle3.color ="#ecf2f4"
+                                        cursorShape = Qt.PointingHandCursor
+                                    }
+                                    onExited: {
+                                        rectangle3.color ="#becfd5"
+                                        cursorShape = Qt.Qt.ArrowCursor
+                                    }
+                                    onPressed: {
+                                        rectangle3.color="#BDBDBD"
+                                    }
+                                    onReleased: {
+                                        rectangle3.color="#ecf2f4"
+                                    }
+
+                                    onClicked: {
+                                        console.log("叉掉:",index)
+                                    }
+                                }
+                            }
+
+
+
+                            Image {
+                                id: listimageclose
+                                x: 159
+                                y: 8
+                                width: 19
+                                height: 24
+                                anchors.verticalCenter: parent.verticalCenter
+                                source: "../image/close.svg"
+                                anchors.verticalCenterOffset: 0
+                                fillMode: Image.PreserveAspectFit
+                                ColorOverlay{
+                                    id:imageclose
+                                    source: listimageclose
+                                    color: "#638cba"
+                                    anchors.fill: parent
+                                }
+                            }
+                            MouseArea{
+                                anchors.fill: listimageclose
+                                hoverEnabled: true
+                                onEntered: {
+                                    imageclose.color="#e1453c"
+                                    //rectangle3.color ="#ecf2f4"
+                                    cursorShape = Qt.PointingHandCursor
+                                }
+                                onExited: {
+                                    imageclose.color="#638cba"
+                                    //rectangle3.color ="#becfd5"
+                                    cursorShape = Qt.Qt.ArrowCursor
+                                }
+                                onPressed: {
+                                    imageclose.color="#e58a84"
+                                }
+                                onReleased: {
+                                    imageclose.color="#e1453c"
+                                }
+
+                                onClicked: {
+                                    console.log("叉掉:",index)
+                                }
+                            }
+
+                        }
+                    }
+                }
+                model: ListModel{
+                    ListElement{
+                        name:"44"
+                    }
+                    ListElement{
+                        name:"eee"
+                    }
+                }
+
+
             }
 
         }
@@ -469,13 +654,13 @@ Item {
         Image {
             id: closeimage
             anchors.fill: parent
-            source: "qrc:/image/close.png"
+            source: "qrc:/image/close.svg"
             cache: false
             fillMode: Image.PreserveAspectFit
             ColorOverlay{
                 anchors.fill: closeimage
                 source: closeimage
-                color: "#a7c0dc"
+                color: "#638cba"
             }
             MouseArea{
                 anchors.fill: parent
@@ -543,3 +728,9 @@ Item {
 
 
 
+
+/*##^##
+Designer {
+    D{i:0;formeditorZoom:0.9}
+}
+##^##*/

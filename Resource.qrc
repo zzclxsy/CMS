@@ -1,67 +1,13 @@
 <RCC>
     <qresource prefix="/">
-        <file>image/login.jpg</file>
-        <file>image/login2.jpg</file>
-        <file>image/19.png</file>
-        <file>image/112.png</file>
-        <file>image/add.png</file>
-        <file>image/add-line_horizontal.png</file>
-        <file>image/add-line_vertical.png</file>
-        <file>image/array_down.png</file>
-        <file>image/array_up.png</file>
-        <file>image/background.png</file>
-        <file>image/branch-closed.png</file>
-        <file>image/branch-end.png</file>
-        <file>image/branch-more.png</file>
-        <file>image/branch-open.png</file>
-        <file>image/checkbox_checked.png</file>
-        <file>image/checkbox_checked_disabled.png</file>
-        <file>image/checkbox_indeterminate.png</file>
-        <file>image/checkbox_unchecked.png</file>
-        <file>image/checkbox_unchecked_disabled.png</file>
-        <file>image/clientMode.png</file>
-        <file>image/close.png</file>
-        <file>image/connected.png</file>
-        <file>image/critical.png</file>
-        <file>image/delete.png</file>
-        <file>image/disabledHotswap.png</file>
-        <file>image/disconnected.png</file>
-        <file>image/down-arrow.png</file>
-        <file>image/editedNotice.png</file>
-        <file>image/enabledHotswap.png</file>
-        <file>image/error.png</file>
-        <file>image/extend.png</file>
-        <file>image/info.png</file>
-        <file>image/information.png</file>
-        <file>image/lock.png</file>
-        <file>image/logo.png</file>
-        <file>image/min.png</file>
-        <file>image/node.gif</file>
-        <file>image/openNode.gif</file>
-        <file>image/pickdown.png</file>
-        <file>image/pickup.png</file>
-        <file>image/pollout.png</file>
-        <file>image/powerOff.png</file>
-        <file>image/powerOn.png</file>
-        <file>image/QPushButtonBackground.png</file>
-        <file>image/question.png</file>
-        <file>image/radio_normal.png</file>
-        <file>image/radio_selected.png</file>
-        <file>image/scanbarActive.png</file>
-        <file>image/scanbarUnactive.png</file>
-        <file>image/serverMode.png</file>
-        <file>image/setting.png</file>
-        <file>image/sub-line_horizontal.png</file>
-        <file>image/sub-line_vertical.png</file>
-        <file>image/textNode.gif</file>
-        <file>image/toMaxSize.png</file>
-        <file>image/toNormalSize.png</file>
-        <file>image/unextend.png</file>
-        <file>image/unlock.png</file>
-        <file>image/wait.gif</file>
-        <file>image/warning.png</file>
         <file>image/gohome.svg</file>
         <file>image/loginBtn.svg</file>
         <file>image/registerBtn.svg</file>
+        <file>image/close.svg</file>
+        <file>image/login2.jpg</file>
+        <file>image/clean.svg</file>
+        <file>image/arrow-down.svg</file>
+        <file>image/arrow-up.svg</file>
+        <file>image/warn.svg</file>
     </qresource>
 </RCC>

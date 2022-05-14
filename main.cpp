@@ -2,6 +2,9 @@
 #include <QQmlApplicationEngine>
 #include "LoginCtrl.h"
 #include "ErrorCode.h"
+#include <QQmlContext>
+
+#include <QDebug>
 int main(int argc, char *argv[])
 {
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
@@ -9,10 +12,11 @@ int main(int argc, char *argv[])
 #endif
     QGuiApplication app(argc, argv);
 
-    qmlRegisterType<LoginCtrl>("logininterface",1,0,"LoginInterface");
-    //qmlRegisterType<ErrorEnum>("errorEnum", 1, 0, "ErrorEnum");
-
+    LoginCtrl login;
     QQmlApplicationEngine engine;
+
+    engine.rootContext()->setContextProperty("UsersModel",login.userModel());
+    engine.rootContext()->setContextProperty("Logindata",(QObject *)&login);
     const QUrl url(QStringLiteral("qrc:/qml/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {

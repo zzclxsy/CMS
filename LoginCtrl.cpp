@@ -5,10 +5,14 @@
 #include <QJsonDocument>
 #include "Utility.h"
 #include "ErrorCode.h"
+#include <QStandardItem>
 
 LoginCtrl::LoginCtrl(QObject *parent):QObject(parent)
 {
     SystemSqliteAccess::instance();
+    mp_userModel = new UserModel;
+    mp_userModel->appendRow(new QStandardItem("1255622652232"));
+    mp_userModel->appendRow(new QStandardItem("dddasdasdasdas"));
 }
 
 LoginCtrl::~LoginCtrl()
@@ -128,5 +132,10 @@ QString LoginCtrl::setNewPassword(QString userName, QString password)
 
     root["error"] = error;
     return Utility::JsonToString(root);
+}
+
+UserModel *LoginCtrl::userModel()
+{
+    return mp_userModel;
 }
 

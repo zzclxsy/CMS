@@ -7,5 +7,7 @@
         <file>qml/MessagePopup.qml</file>
         <file>qml/ForgetPassword.qml</file>
         <file>qml/OperationUI.qml</file>
+        <file>qml/Mask.qml</file>
+        <file>qml/Popup.qml</file>
     </qresource>
 </RCC>

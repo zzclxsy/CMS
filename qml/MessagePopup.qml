@@ -1,5 +1,4 @@
 import QtQuick 2.0
-import QtQuick.Controls 2.5
 import QtGraphicalEffects 1.12
 Popup{
 
@@ -7,13 +6,13 @@ Popup{
     anchors.centerIn: parent
     width: 300
     height: 350
-    modal: true
     focus: true
-    closePolicy: Popup.CloseOnEscape
+    visible: false
+    animationType:"size"
+    showMask: true
     property int g_affirm: 0
     property int g_close: 1
     property int g_cancel: 2
-
     property var g_callback
 
     function showBtn(closeBtnShow, cancelBtnShow)
@@ -44,7 +43,7 @@ Popup{
         infoIcomImage.source="qrc:/image/warn.svg"
         infoInput.text = info
         g_callback = callback
-        popup.open()
+        popup.show()
     }
 
     function informMessage(info, callback, closeBtnShow = false,cancelBtnShow = false)
@@ -56,7 +55,7 @@ Popup{
         infoIcomImage.source = "qrc:/image/info.svg"
         infoInput.text = info
         g_callback = callback
-        popup.open()
+        popup.show()
 
     }
 
@@ -69,10 +68,14 @@ Popup{
         infoIcomImage.source = "qrc:/image/errorInfo.svg"
         infoInput.text = info
         g_callback = callback
-        popup.open()
+        popup.show()
+    }
+    function closeWin()
+    {
+        popup.hide()
     }
 
-    contentItem: Rectangle{
+    Rectangle{
         id: rectangle1
         width: 348
         color: "#165194"
@@ -146,7 +149,7 @@ Popup{
 
                         onClicked: {
                             g_callback(g_cancel)
-                            close()
+                            closeWin()
                         }
                     }
                 }
@@ -216,7 +219,7 @@ Popup{
                     onClicked: {
                             console.log("affirmBtn")
                             g_callback(g_affirm)
-                            close()
+                            closeWin()
                     }
                 }
 
@@ -264,7 +267,7 @@ Popup{
                     onClicked: {
                             console.log("closeBtn")
                             g_callback(g_close)
-                            close()
+                            closeWin()
                     }
                 }
             }
@@ -311,7 +314,7 @@ Popup{
                     onClicked: {
                             console.log("cancelBtn")
                             g_callback(g_cancel)
-                            close()
+                            closeWin()
                     }
                 }
 

@@ -3,7 +3,6 @@
 #include "LoginCtrl.h"
 #include "ErrorCode.h"
 #include <QQmlContext>
-
 #include <QDebug>
 int main(int argc, char *argv[])
 {

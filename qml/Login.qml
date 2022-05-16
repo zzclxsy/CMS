@@ -449,11 +449,14 @@ Item {
 
             Rectangle {
                 id: forgetBtn
-                x: 8
                 y: 421
                 width: 72
                 height: 29
                 color: "#00ffffff"
+                anchors.left: parent.left
+                anchors.bottom: parent.bottom
+                anchors.leftMargin: 8
+                anchors.bottomMargin: 0
 
                 Text {
                     id: text6
@@ -503,11 +506,14 @@ Item {
 
             ListView {
                 id: listView
-                x: 125
-                y: 238
-                width: 180
                 height: 160
                 visible: false
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.top: userNamerow.bottom
+                anchors.rightMargin: 45
+                anchors.leftMargin: 125
+                anchors.topMargin: -2
                 clip:true
                 ScrollBar.vertical: ScrollBar
                 {
@@ -770,6 +776,6 @@ Item {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.8999999761581421}
+    D{i:0;formeditorZoom:0.8999999761581421}D{i:34}D{i:37}
 }
 ##^##*/

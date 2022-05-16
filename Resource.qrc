@@ -11,5 +11,8 @@
         <file>image/warn.svg</file>
         <file>image/info.svg</file>
         <file>image/errorInfo.svg</file>
+        <file>image/largeWin.svg</file>
+        <file>image/smallWin.svg</file>
+        <file>image/minwin.svg</file>
     </qresource>
 </RCC>

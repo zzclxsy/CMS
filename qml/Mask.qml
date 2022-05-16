@@ -4,8 +4,8 @@ import QtQml 2.12
 /**灯箱效果，禁止操作下层的对象*/
 Rectangle {
     //anchors.fill: getRoot(this)
-    color: 'lightgrey'
-    opacity: 0.2
+    color: "#ffffff"
+    opacity: 0.1
     z:99
     MouseArea{
         anchors.fill: parent;

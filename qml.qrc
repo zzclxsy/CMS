@@ -10,5 +10,10 @@
         <file>qml/Mask.qml</file>
         <file>qml/Popup.qml</file>
         <file>qml/MouseDarg.qml</file>
+        <file>qml/UserInfo.qml</file>
+        <file>qml/ApplicationWin.qml</file>
+        <file>qml/LogShow.qml</file>
+        <file>qml/Hardware.qml</file>
+        <file>qml/Monitor.qml</file>
     </qresource>
 </RCC>

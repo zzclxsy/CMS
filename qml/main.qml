@@ -2,7 +2,6 @@ import QtQuick 2.12
 import QtQuick.Window 2.2
 import QtQml 2.12
 import QtQuick.Controls 2.5
-
 Window {
     id: root
     width: 925
@@ -54,12 +53,12 @@ Window {
             pageLoader.source = "qrc:/qml/OperationUI.qml"
             forgetLoader.source = ""
             registerLoader.source = ""
-            root.width = 1300
-            root.height = 800
+            root.width = 1400
+            root.height = 900
             root.setX(Screen.width / 2 - width / 2);
             root.setY(Screen.height / 2 - height / 2);
 
-
+            pageLoader.item.listviewIndex = 0
         }
     }
     //Register信号
@@ -91,7 +90,6 @@ Window {
     Component.onCompleted: {
         pageLoader.item.forgetClicked.connect(forgetLoader.item.getUserName)
     }
-
 }
 
 /*##^##

@@ -466,6 +466,46 @@ Item {
                 anchors.leftMargin: 0
             }
 
+            Rectangle {
+                id: stateRect
+                height: 42
+                color: "#ffffff"
+                anchors.left: rectangle.right
+                anchors.right: parent.right
+                anchors.top: parent.top
+                anchors.topMargin: 0
+                anchors.rightMargin: 112
+                anchors.leftMargin: 0
+                MouseArea{
+                    anchors.fill: parent
+                    property bool doubleClick: false
+                    onDoubleClicked: {
+                        if (g_currWinStatus === false)
+                        {
+                            g_currWinStatus = true
+                            root.showMaximized()
+                        }
+                        else if (g_currWinStatus === true)
+                        {
+                            g_currWinStatus = false
+                            root.showNormal()
+                        }
+                        doubleClick = true
+                    }
+                    property point clickPos: "0,0"  //定义一个点
+                    onPressed: {
+                        clickPos = Qt.point(mouseX, mouseY)
+                    }
+
+                    onPositionChanged: {
+                        if (doubleClick == false)
+                            deltaPos = Qt.point(mouse.x-clickPos.x, mouse.y-clickPos.y)
+
+                        doubleClick = false
+                    }
+                }
+            }
+
 
 
 
@@ -605,6 +645,6 @@ Item {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.8999999761581421}
+    D{i:0;formeditorZoom:0.8999999761581421}D{i:39}
 }
 ##^##*/

@@ -168,7 +168,7 @@ Item {
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
                         font.capitalization: Font.MixedCase
-                        font.family: "Tahoma"
+                        font.family: "Arial"
                         font.italic: false
                         font.strikeout: false
                         font.underline: false
@@ -527,15 +527,16 @@ Item {
 
             Rectangle {
                 id: stateRect
-                height: 42
+                height: 65
                 color: "#ffffff"
                 anchors.left: rectangle.right
                 anchors.right: parent.right
                 anchors.top: parent.top
                 anchors.topMargin: 3
-                anchors.rightMargin: 112
+                anchors.rightMargin: 174
                 anchors.leftMargin: 0
                 MouseArea{
+                    id: mouseArea
                     anchors.fill: parent
                     property bool doubleClick: false
                     onDoubleClicked: {
@@ -562,6 +563,77 @@ Item {
 
                         doubleClick = false
                     }
+
+                    Text {
+                        id: text6
+                        x: 882
+                        y: 8
+                        width: 143
+                        height: 49
+                        text: qsTr("logStatus")
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.right: parent.right
+                        font.pixelSize: 29
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        anchors.rightMargin: 82
+                    }
+
+                    Image {
+                        id: image9
+                        x: 1023
+                        y: 8
+                        width: 76
+                        height: 49
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.right: parent.right
+                        source: "qrc:/image/lampOff.svg"
+                        anchors.rightMargin: 8
+                        fillMode: Image.PreserveAspectFit
+                    }
+
+                    Image {
+                        id: image10
+                        x: 767
+                        y: 8
+                        width: 76
+                        height: 49
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.right: parent.right
+                        source: "qrc:/image/lampOn.svg"
+                        anchors.rightMargin: 264
+                        anchors.verticalCenterOffset: 0
+                        fillMode: Image.PreserveAspectFit
+                    }
+
+                    Text {
+                        id: text7
+                        x: 632
+                        y: 19
+                        width: 142
+                        height: 50
+                        text: qsTr("hwStatus")
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.right: parent.right
+                        font.pixelSize: 30
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        anchors.rightMargin: 333
+                        anchors.verticalCenterOffset: 0
+                    }
+                }
+
+                Rectangle {
+                    id: rectangle2
+                    x: 1098
+                    width: 2
+                    color: "#d3d2d2"
+                    anchors.right: parent.right
+                    anchors.top: parent.top
+                    anchors.bottom: parent.bottom
+                    anchors.topMargin: 8
+                    anchors.bottomMargin: 7
+                    anchors.rightMargin: 7
                 }
             }
 
@@ -713,7 +785,6 @@ Item {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.8999999761581421}D{i:14}D{i:18}D{i:22}D{i:26}D{i:30}D{i:34}
-D{i:41}
+    D{i:0;formeditorZoom:0.6600000262260437}
 }
 ##^##*/

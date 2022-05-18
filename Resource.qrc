@@ -24,5 +24,8 @@
         <file>image/monitorClicked.svg</file>
         <file>image/monitorNoClicked.svg</file>
         <file>image/userinfoNoClicked.svg</file>
+        <file>image/info.svg</file>
+        <file>image/lampOff.svg</file>
+        <file>image/lampOn.svg</file>
     </qresource>
 </RCC>

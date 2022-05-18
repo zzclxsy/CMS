@@ -2,6 +2,7 @@ import QtQuick 2.12
 import QtQuick.Window 2.2
 import QtQml 2.12
 import QtQuick.Controls 2.5
+
 Window {
     id: root
     width: 925
@@ -9,7 +10,7 @@ Window {
     flags: Qt.Window | Qt.FramelessWindowHint //隐藏标题栏
     visible: true
     title: qsTr("Hello World")
-
+    color: "#00000000"
     Loader{
         id:registerLoader
         anchors.fill: parent
@@ -26,6 +27,7 @@ Window {
         id:pageLoader
         anchors.fill: parent
         source: "Login.qml"
+        anchors.margins : pageLoader.item.g_currWinStatus === false ? 10 : 0
     }
 
     //login 信号
@@ -51,14 +53,13 @@ Window {
         }
         onLoginSucceed:{
             pageLoader.source = "qrc:/qml/OperationUI.qml"
+
             forgetLoader.source = ""
             registerLoader.source = ""
             root.width = 1400
             root.height = 900
             root.setX(Screen.width / 2 - width / 2);
             root.setY(Screen.height / 2 - height / 2);
-
-            pageLoader.item.listviewIndex = 0
         }
     }
     //Register信号

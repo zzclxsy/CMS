@@ -6,7 +6,6 @@ Item {
     id :itemroot
     width: 1400
     height: 900
-    property alias listviewIndex: listView.currentIndex
     property point deltaPos: "0,0"
     signal closeLogin()
     property bool g_currWinStatus: false
@@ -640,6 +639,16 @@ Item {
             }
 
         }
+    }
+
+    DropShadow {
+        anchors.fill: mainRect
+        horizontalOffset: 0
+        verticalOffset: 0
+        radius: 5
+        samples: 11
+        source: mainRect
+        color: "black"
     }
 }
 

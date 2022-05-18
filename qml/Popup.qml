@@ -46,7 +46,7 @@ Rectangle {
     // 公有属性
     property bool showMask : false;
     property string animationType : 'none';
-    property int duration : 500
+    property int duration : 400
     property int easingType : Easing.OutBounce
 
 

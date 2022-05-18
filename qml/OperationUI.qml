@@ -6,9 +6,20 @@ Item {
     id :itemroot
     width: 1400
     height: 900
+    property alias listviewCurrIndex: listView.currentIndex
     property point deltaPos: "0,0"
     signal closeLogin()
     property bool g_currWinStatus: false
+
+    DropShadow {
+        anchors.fill: mainRect
+        horizontalOffset: 0
+        verticalOffset: 0
+        radius: 5
+        samples: 11
+        source: mainRect
+        color: "black"
+    }
 
     Rectangle {
         id: mainRect
@@ -34,14 +45,15 @@ Item {
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
                 anchors.rightMargin: 8
-                anchors.leftMargin: 186
+                anchors.leftMargin: 125
                 anchors.bottomMargin: 8
-                anchors.topMargin: 53
+                anchors.topMargin: 77
 
                 clip: true
                 orientation: ListView.Vertical
                 snapMode: ListView.SnapOneItem
                 highlightRangeMode: ListView.StrictlyEnforceRange
+                currentIndex: 0
                 highlightMoveDuration:300
                 interactive:false
                 spacing: 5
@@ -65,7 +77,12 @@ Item {
                         name: "monitor"
                     }
                 }
-                delegate:  Rectangle {
+                delegate:listviewdelegate
+            }
+
+            Component{
+                id:listviewdelegate
+                Rectangle {
                     width: listView.width
                     height: listView.height
                     Component.onCompleted: {
@@ -103,10 +120,9 @@ Item {
                 }
             }
 
-
             Rectangle {
                 id: rectangle
-                width: 180
+                width: 119
                 color: "#164e8b"
                 anchors.left: parent.left
                 anchors.top: parent.top
@@ -114,34 +130,26 @@ Item {
                 anchors.leftMargin: 0
                 anchors.bottomMargin: 0
                 anchors.topMargin: 0
-            }
-
-
-            Column {
-                id: column
-                width: 164
-                anchors.left: parent.left
-                anchors.top: parent.top
-                anchors.bottom: parent.bottom
-                anchors.leftMargin: 8
-                anchors.bottomMargin: 0
-                anchors.topMargin: 45
-                spacing: 0
 
                 Rectangle {
                     id: userBtn
-                    width: 164
-                    height: 145
-                    color: "#ffffff"
+                    width: 100
+                    height: 100
+                    color: "#00ffffff"
                     border.width: 0
+                    anchors.top: parent.top
+                    anchors.topMargin: 18
+                    anchors.horizontalCenterOffset: 0
+                    anchors.horizontalCenter: parent.horizontalCenter
                     property bool m_isClicked: true
+                    x: 28
                     Image {
                         id: image3
                         x: 57
-                        width: 80
-                        height: 65
+                        width: 50
+                        height: 50
                         anchors.top: parent.top
-                        source: "qrc:/image/user.svg"
+                        source: "qrc:/image/infoClicked.svg"
                         anchors.topMargin: 8
                         anchors.horizontalCenterOffset: 0
                         anchors.horizontalCenter: parent.horizontalCenter
@@ -150,28 +158,36 @@ Item {
 
                     Text {
                         id: text2
-                        height: 43
+                        height: 38
+                        visible: true
                         text: qsTr("Settings")
                         anchors.left: parent.left
                         anchors.right: parent.right
                         anchors.top: image3.bottom
-                        font.pixelSize: 26
+                        font.pixelSize: 20
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
-                        anchors.topMargin: 6
+                        font.capitalization: Font.MixedCase
+                        font.family: "Tahoma"
+                        font.italic: false
+                        font.strikeout: false
+                        font.underline: false
+                        font.bold: false
+                        anchors.topMargin: 0
                         anchors.rightMargin: 0
                         anchors.leftMargin: 0
+                        color: "#ffffff"
                     }
                     onM_isClickedChanged: {
                         if (m_isClicked)
                         {
-                            userBtn.color = "#ffffff"
-                            text2.color = "#000000"
+                            image3.source = "qrc:/image/infoClicked.svg"
+                            text2.color = "#ffffff"
                         }
                         else
                         {
-                            userBtn.color = "#00ffffff"
-                            text2.color = "#ffffff"
+                            image3.source = "qrc:/image/userinfoNoClicked.svg"
+                            text2.color = "#dbdbdb"
                         }
                     }
 
@@ -179,6 +195,8 @@ Item {
                         width: 160
                         height: 140
                         anchors.fill: parent
+                        anchors.rightMargin: 0
+                        anchors.bottomMargin: 0
                         onClicked: {
                             userBtn.m_isClicked = true
                             funcBtn.m_isClicked = false
@@ -192,19 +210,24 @@ Item {
 
                 Rectangle {
                     id: funcBtn
-                    width: 164
-                    height: 145
+                    width: 100
+                    height: 100
                     color: "#004fe789"
                     border.width: 0
+                    anchors.top: parent.top
+                    anchors.topMargin: 130
+                    anchors.horizontalCenterOffset: 0
+                    anchors.horizontalCenter: parent.horizontalCenter
                     property bool m_isClicked: false
+                    x: 37
 
                     Image {
                         id: image4
                         x: 65
-                        width: 80
-                        height: 65
+                        width: 50
+                        height: 50
                         anchors.top: parent.top
-                        source: "qrc:/image/function.svg"
+                        source: "qrc:/image/functionNoClicked.svg"
                         anchors.topMargin: 8
                         anchors.horizontalCenterOffset: 0
                         anchors.horizontalCenter: parent.horizontalCenter
@@ -214,28 +237,33 @@ Item {
                     Text {
                         id: text1
                         height: 43
-                        color: "#ffffff"
-                        text: qsTr("Application")
+                        color: "#dbdbdb"
+                        text: qsTr("Apps")
                         anchors.left: parent.left
                         anchors.right: parent.right
                         anchors.top: image4.bottom
-                        font.pixelSize: 26
+                        font.pixelSize: 20
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
+                        font.strikeout: false
+                        font.underline: false
+                        font.italic: false
+                        font.bold: true
+                        font.capitalization: Font.MixedCase
                         anchors.topMargin: 0
                         anchors.leftMargin: 0
-                        anchors.rightMargin: -2
+                        anchors.rightMargin: 0
                     }
                     onM_isClickedChanged: {
                         if (m_isClicked)
                         {
-                            funcBtn.color = "#ffffff"
-                            text1.color = "#000000"
+                            image4.source = "qrc:/image/functionClicked.svg"
+                            text1.color = "#ffffff"
                         }
                         else
                         {
-                            funcBtn.color = "#00ffffff"
-                            text1.color = "#ffffff"
+                            image4.source = "qrc:/image/functionNoClicked.svg"
+                            text1.color = "#dbdbdb"
                         }
                     }
                     MouseArea{
@@ -253,18 +281,23 @@ Item {
 
                 Rectangle {
                     id: logBtn
-                    width: 164
-                    height: 146
+                    width: 100
+                    height: 100
                     color: "#005e1fbe"
                     border.width: 0
+                    anchors.top: parent.top
+                    anchors.topMargin: 242
+                    anchors.horizontalCenterOffset: 0
+                    anchors.horizontalCenter: parent.horizontalCenter
                     property bool m_isClicked: false
+                    x: 21
                     Image {
                         id: image5
                         x: 60
-                        width: 80
-                        height: 65
+                        width: 50
+                        height: 50
                         anchors.top: parent.top
-                        source: "qrc:/image/log.svg"
+                        source: "qrc:/image/logNoClicked.svg"
                         anchors.topMargin: 7
                         anchors.horizontalCenterOffset: 0
                         anchors.horizontalCenter: parent.horizontalCenter
@@ -274,28 +307,29 @@ Item {
                     Text {
                         id: text3
                         height: 43
-                        color: "#f9f8f8"
+                        color: "#dbdbdb"
                         text: qsTr("LogShow")
                         anchors.left: parent.left
                         anchors.right: parent.right
                         anchors.top: image5.bottom
-                        font.pixelSize: 26
+                        font.pixelSize: 20
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
+                        font.bold: true
                         anchors.topMargin: 0
-                        anchors.rightMargin: -2
+                        anchors.rightMargin: 0
                         anchors.leftMargin: 0
                     }
                     onM_isClickedChanged: {
                         if (m_isClicked)
                         {
-                            logBtn.color = "#ffffff"
-                            text3.color = "#000000"
+                            image5.source = "qrc:/image/logClicked.svg"
+                            text3.color = "#ffffff"
                         }
                         else
                         {
-                            logBtn.color = "#00ffffff"
-                            text3.color = "#ffffff"
+                            image5.source = "qrc:/image/logNoClicked.svg"
+                            text3.color = "#dbdbdb"
                         }
                     }
 
@@ -314,18 +348,23 @@ Item {
 
                 Rectangle {
                     id: hardwareBtn
-                    width: 164
-                    height: 145
+                    width: 100
+                    height: 100
                     color: "#00f612f2"
                     border.width: 0
+                    anchors.top: parent.top
+                    anchors.topMargin: 360
+                    anchors.horizontalCenterOffset: 0
+                    anchors.horizontalCenter: parent.horizontalCenter
                     property bool m_isClicked: false
+                    x: 0
                     Image {
                         id: image6
                         x: 77
                         y: 7
-                        width: 80
-                        height: 65
-                        source: "qrc:/image/sharpicons_processor-2.svg"
+                        width: 50
+                        height: 50
+                        source: "qrc:/image/hardwareNoClicked.svg"
                         anchors.horizontalCenterOffset: 0
                         anchors.horizontalCenter: parent.horizontalCenter
                         fillMode: Image.PreserveAspectFit
@@ -334,14 +373,15 @@ Item {
                     Text {
                         id: text4
                         height: 43
-                        color: "#ffffff"
+                        color: "#dbdbdb"
                         text: qsTr("Hardware")
                         anchors.left: parent.left
                         anchors.right: parent.right
                         anchors.top: image6.bottom
-                        font.pixelSize: 26
+                        font.pixelSize: 20
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
+                        font.bold: true
                         anchors.topMargin: 0
                         anchors.rightMargin: -2
                         anchors.leftMargin: 0
@@ -349,13 +389,13 @@ Item {
                     onM_isClickedChanged: {
                         if (m_isClicked)
                         {
-                            hardwareBtn.color = "#ffffff"
-                            text4.color = "#000000"
+                            image6.source = "qrc:/image/hardwareClicked.svg"
+                            text4.color = "#ffffff"
                         }
                         else
                         {
-                            hardwareBtn.color = "#00ffffff"
-                            text4.color = "#ffffff"
+                            image6.source = "qrc:/image/hardwareNoClicked.svg"
+                            text4.color = "#dbdbdb"
                         }
                     }
 
@@ -374,17 +414,22 @@ Item {
 
                 Rectangle {
                     id: monitorBtn
-                    width: 164
-                    height: 145
+                    width: 100
+                    height: 100
                     color: "#00ffffff"
+                    anchors.top: parent.top
+                    anchors.topMargin: 478
+                    anchors.horizontalCenterOffset: 0
+                    anchors.horizontalCenter: parent.horizontalCenter
                     property bool m_isClicked: false
+                    x: 21
                     Image {
                         id: image7
                         x: 37
-                        width: 80
-                        height: 65
+                        width: 50
+                        height: 50
                         anchors.top: parent.top
-                        source: "qrc:/image/monitor.svg"
+                        source: "qrc:/image/monitorNoClicked.svg"
                         anchors.topMargin: 8
                         anchors.horizontalCenter: parent.horizontalCenter
                         fillMode: Image.PreserveAspectFit
@@ -393,28 +438,29 @@ Item {
                     Text {
                         id: text5
                         height: 43
-                        color: "#ffffff"
+                        color: "#dbdbdb"
                         text: qsTr("Monitor")
                         anchors.left: parent.left
                         anchors.right: parent.right
                         anchors.top: image7.bottom
-                        font.pixelSize: 26
+                        font.pixelSize: 20
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
+                        font.bold: true
                         anchors.topMargin: 0
-                        anchors.rightMargin: -2
+                        anchors.rightMargin: 0
                         anchors.leftMargin: 0
                     }
                     onM_isClickedChanged: {
                         if (m_isClicked)
                         {
-                            monitorBtn.color = "#ffffff"
-                            text5.color = "#000000"
+                            image7.source = "qrc:/image/monitorClicked.svg"
+                            text5.color = "#ffffff"
                         }
                         else
                         {
-                            monitorBtn.color = "#00ffffff"
-                            text5.color = "#ffffff"
+                            image7.source = "qrc:/image/monitorNoClicked.svg"
+                            text5.color = "#dbdbdb"
                         }
                     }
                     MouseArea{
@@ -429,7 +475,22 @@ Item {
                         }
                     }
                 }
+
+                Image {
+                    id: image8
+                    x: 10
+                    y: 855
+                    width: 88
+                    height: 45
+                    anchors.bottom: parent.bottom
+                    source: "qrc:/image/cms.jpg"
+                    anchors.horizontalCenterOffset: 0
+                    anchors.bottomMargin: 0
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    fillMode: Image.PreserveAspectFit
+                }
             }
+
 
             UserInfo{
                 id:userInfoWin
@@ -455,12 +516,11 @@ Item {
 
             Rectangle {
                 id: rectangle1
+                y: 69
                 height: 2
                 color: "#e8e8e8"
                 anchors.left: rectangle.right
                 anchors.right: parent.right
-                anchors.top: parent.top
-                anchors.topMargin: 45
                 anchors.rightMargin: 0
                 anchors.leftMargin: 0
             }
@@ -472,7 +532,7 @@ Item {
                 anchors.left: rectangle.right
                 anchors.right: parent.right
                 anchors.top: parent.top
-                anchors.topMargin: 0
+                anchors.topMargin: 3
                 anchors.rightMargin: 112
                 anchors.leftMargin: 0
                 MouseArea{
@@ -513,31 +573,33 @@ Item {
 
         Row {
             id: row
-            x: 1156
+            x: 1226
             y: 11
-            width: 100
-            height: 24
+            width: 166
+            height: 59
             anchors.right: parent.right
             anchors.top: parent.top
-            spacing: 7
+            spacing: 5
             anchors.topMargin: 8
-            anchors.rightMargin: 0
+            anchors.rightMargin: 8
 
             Rectangle {
                 id: minBtn
-                width: 28
-                height: 24
+                width: 50
+                height: 60
                 color: "#003ef05c"
 
                 Image {
                     id: image2
-                    anchors.fill: parent
+                    width: 47
+                    height: 45
+                    anchors.verticalCenter: parent.verticalCenter
                     source: "qrc:/image/minwin.svg"
-                    fillMode: Image.PreserveAspectCrop
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    fillMode: Image.PreserveAspectFit
                 }
 
                 MouseArea{
-                    anchors.fill: parent
                     hoverEnabled: true
                     onEntered: {
                         minBtn.color="#e6e0e0"
@@ -551,6 +613,8 @@ Item {
                     }
                     property size beforeWinSize
                     property point beforeWinPos: "0,0"
+                    anchors.right: parent.right
+                    anchors.fill: parent
                     onClicked: {
                         g_currWinStatus = false
                         root.showMinimized()
@@ -560,20 +624,20 @@ Item {
 
             Rectangle {
                 id: winSizeBtn
-                width: 27
-                height: 24
+                width: 50
+                height: 60
                 color: "#00000000"
 
                 Image {
                     id: image
                     x: -27
                     y: 0
-                    width: 20
-                    height: 18
+                    width: 30
+                    height: 44
                     anchors.verticalCenter: parent.verticalCenter
                     source: "qrc:/image/largeWin.svg"
                     anchors.horizontalCenter: parent.horizontalCenter
-                    fillMode: Image.PreserveAspectCrop
+                    fillMode: Image.PreserveAspectFit
                 }
 
                 MouseArea{
@@ -606,21 +670,26 @@ Item {
 
             Rectangle {
                 id: closeBtn
-                width: 27
-                height: 24
+                width: 47
+                height: 60
                 color: "#00ffffff"
 
                 Image {
                     id: image1
-                    x: -54
-                    y: 0
-                    anchors.fill: parent
+                    x: 2
+                    y: 8
+                    width: 35
+                    height: 35
+                    anchors.verticalCenter: parent.verticalCenter
                     source: "qrc:/image/close.svg"
+                    anchors.horizontalCenter: parent.horizontalCenter
                     fillMode: Image.PreserveAspectFit
                 }
 
                 MouseArea{
+                    width: 50
                     anchors.fill: parent
+                    anchors.rightMargin: -5
                     hoverEnabled: true
                     onEntered: {
                         closeBtn.color="#e1453c"
@@ -640,20 +709,11 @@ Item {
 
         }
     }
-
-    DropShadow {
-        anchors.fill: mainRect
-        horizontalOffset: 0
-        verticalOffset: 0
-        radius: 5
-        samples: 11
-        source: mainRect
-        color: "black"
-    }
 }
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.8999999761581421}D{i:39}
+    D{i:0;formeditorZoom:0.8999999761581421}D{i:14}D{i:18}D{i:22}D{i:26}D{i:30}D{i:34}
+D{i:41}
 }
 ##^##*/

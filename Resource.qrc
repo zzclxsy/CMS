@@ -9,15 +9,20 @@
         <file>image/arrow-down.svg</file>
         <file>image/arrow-up.svg</file>
         <file>image/warn.svg</file>
-        <file>image/info.svg</file>
         <file>image/errorInfo.svg</file>
         <file>image/largeWin.svg</file>
         <file>image/smallWin.svg</file>
         <file>image/minwin.svg</file>
-        <file>image/user.svg</file>
-        <file>image/function.svg</file>
-        <file>image/log.svg</file>
-        <file>image/sharpicons_processor-2.svg</file>
-        <file>image/monitor.svg</file>
+        <file>image/cms.jpg</file>
+        <file>image/functionClicked.svg</file>
+        <file>image/functionNoClicked.svg</file>
+        <file>image/logClicked.svg</file>
+        <file>image/logNoClicked.svg</file>
+        <file>image/hardwareClicked.svg</file>
+        <file>image/hardwareNoClicked.svg</file>
+        <file>image/infoClicked.svg</file>
+        <file>image/monitorClicked.svg</file>
+        <file>image/monitorNoClicked.svg</file>
+        <file>image/userinfoNoClicked.svg</file>
     </qresource>
 </RCC>

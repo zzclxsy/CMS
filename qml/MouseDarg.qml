@@ -16,6 +16,7 @@ MouseArea {
     property point g_currPos: "0,0"
     property bool g_press: false
     property var operObj: null
+    property bool isCanOper: true
     function calcMousePos(mousePos)
     {
         //左上
@@ -62,14 +63,26 @@ MouseArea {
     }
     property point clickPos: "0,0"
     onPressed: {
+        if (isCanOper === false)
+            return
+
         g_press = true
         clickPos = Qt.point(mouse.x,mouse.y)
+
     }
     onReleased: {
+
+        if (isCanOper === false)
+            return
+
         g_press = false
     }
 
     onPositionChanged: {
+
+        if (isCanOper === false)
+            return
+
         if (g_press)
         {
             //g_currPos必须放到changePos前面赋值，不然changePos值改变
@@ -85,6 +98,10 @@ MouseArea {
 
 
     onChangePosChanged: {
+
+        if (isCanOper === false)
+            return
+
         if (g_mousePos === "left")
         {
             operObj.setWidth(operObj.width - changePos.x)

@@ -2,6 +2,7 @@
 #define LOGDATA_H
 #include <QAbstractListModel>
 #include <QtQuick>
+#include "VXTcpServer.h"
 class LogItem: public QObject
 {
     Q_OBJECT
@@ -61,6 +62,11 @@ class LogData:public QObject
     Q_OBJECT
 public:
     LogData(QObject *parent = nullptr);
+
+private:
+     int hander(VXSocketSession *, const char *data, int leng);
+private:
+    std::shared_ptr<VXTcpServer> mp_server;
 
 signals:
     void setLogMessage(QString type, QString message);

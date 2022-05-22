@@ -10,6 +10,7 @@ CONFIG(debug, debug|release){
 } else {
     DESTDIR = $$PWD/../bin/release
 }
+
 HEADERS += \
     errorCode.h \
     logData.h \
@@ -27,9 +28,27 @@ SOURCES += \
 	sqlite/systemSqliteAccess.cpp \
 	utility.cpp
 
+CONFIG(debug, debug|release) {
+
+    LIBS += -L$$PWD/ThirdParty/lib_x64/boost/debug -llibboost_thread-vc142-mt-gd-x64-1_79
+    LIBS += -L$$PWD/lib/debug/ -llibFrameworkd
+
+    DESTDIR = $$PWD../bin/debug
+} else {
+    LIBS += -L$$PWD/ThirdParty/lib_x64/boost/release -llibboost_thread-vc142-mt-x64-1_79
+    LIBS += -L$$PWD/lib/release/ -llibFramework
+    DESTDIR = $$PWD/../bin/release
+}
+INCLUDEPATH += $$PWD/inc
+INCLUDEPATH += $$PWD/ThirdParty/inc
+
 RESOURCES += qml.qrc \
     Resource.qrc
 
+msvc {
+    QMAKE_CFLAGS += /utf-8
+    QMAKE_CXXFLAGS += /utf-8
+}
 RC_ICONS = icon.ico
 # Additional import path used to resolve QML modules in Qt Creator's code model
 #QML_IMPORT_PATH =

@@ -123,7 +123,6 @@ Rectangle {
         innerWidth = root.width;
         innerHeight = root.height;
         innerOpacity = root.opacity;
-        console.log("x=" + innerX + " y="+innerY + " w=" + innerWidth + " h="+innerHeight);
     }
 
     function reset()

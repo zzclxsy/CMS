@@ -5,24 +5,19 @@
 #include "logData.h"
 #include <QQmlContext>
 #include <QDebug>
+#include "XCoreApplication.h"
 int main(int argc, char *argv[])
 {
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
     QGuiApplication app(argc, argv);
-
+    XCoreApplication(argc,argv);
     LogData logdata;
     LoginCtrl login;
     QQmlApplicationEngine engine;
 
-
-   // qmlRegisterType<LogModel>("LogModel",1,0,"LogModel");
-   // qmlRegisterType<LogItem>("LogItem",1,0,"LogItem");
-
-
     engine.rootContext()->setContextProperty("LogData",&logdata);
-
     engine.rootContext()->setContextProperty("UsersModel",login.userModel());
     engine.rootContext()->setContextProperty("Logindata",(QObject *)&login);
     const QUrl url(QStringLiteral("qrc:/qml/main.qml"));

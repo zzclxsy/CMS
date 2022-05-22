@@ -85,7 +85,7 @@ Item {
                     width: 83
                     height: 48
                     color: "#edebeb"
-                    text: qsTr("Account")
+                    text: "Account"
                     font.pixelSize: 17
                     horizontalAlignment: Text.AlignLeft
                     verticalAlignment: Text.AlignVCenter
@@ -721,7 +721,6 @@ Item {
                 }
 
                 onClicked: {
-                    console.log("关闭登录窗口")
                     closeLogin()
                 }
             }

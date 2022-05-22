@@ -217,7 +217,6 @@ Popup{
                     }
 
                     onClicked: {
-                            console.log("affirmBtn")
                             g_callback(g_affirm)
                             closeWin()
                     }
@@ -265,7 +264,6 @@ Popup{
                     }
 
                     onClicked: {
-                            console.log("closeBtn")
                             g_callback(g_close)
                             closeWin()
                     }
@@ -312,7 +310,6 @@ Popup{
                     }
 
                     onClicked: {
-                            console.log("cancelBtn")
                             g_callback(g_cancel)
                             closeWin()
                     }

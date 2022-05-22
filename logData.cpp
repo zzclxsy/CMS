@@ -2,6 +2,8 @@
 #include <QStandardItem>
 #include <QDebug>
 #include <QTimer>
+#include "XCoreApplication.h"
+#include <thread>
 LogModel::LogModel(QObject *parent):QAbstractListModel(parent)
 {
     m_roles.insert(Role::Type,"type");
@@ -77,20 +79,23 @@ void LogItem::setMessage(QString message)
     emit MessageChanged(m_message);
 }
 
+int LogData::hander(VXSocketSession *, const char *data, int leng)
+{
+    char buf[1024];
+    memset(buf, 0, sizeof (buf));
+    memcpy(buf, data, leng);
+    QString str(buf);
+    str.section("$",0,0);
+    QString head = str.section("$",0,0);
+    QString mess = str.section("$",1,1);
+    emit setLogMessage(head, mess);
+    return 0;
+}
 LogData::LogData(QObject *parent):QObject(parent)
 {
-
-    QTimer *timer = new QTimer;
-
-    connect(timer, &QTimer::timeout, [=](){
-
-        emit setLogMessage("errorLog", QStringLiteral("this is error logdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"));
-
-        emit setLogMessage("infoLog", QStringLiteral("this is info log"));
-
-        emit setLogMessage("warnLog", QStringLiteral("this is warn log"));
-
-        emit setLogMessage("debugLog", QStringLiteral("this is debug log"));
-    });
-    timer->start(3000);
+    mp_server = XCoreApplication::GetApp()->CreateTcpServer();
+    mp_server->SetIpAddress("127.0.0.1");
+    mp_server->SetPort(8080);
+    mp_server->SetDataHandler(std::bind(&LogData::hander,this,std::placeholders::_1,std::placeholders::_2,std::placeholders::_3));
+    mp_server->Start();
 }

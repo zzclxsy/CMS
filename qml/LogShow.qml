@@ -43,6 +43,7 @@ Item {
             orientation:Qt.Horizontal
             interactive :false
             clip: true
+
             Flickable{
                 id:flickAlllog
                 ScrollBar.horizontal:ScrollBar{policy:ScrollBar.AsNeeded}

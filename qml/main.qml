@@ -11,6 +11,13 @@ Window {
     visible: true
     title: qsTr("Hello World")
     color: "#00000000"
+    property bool g_isDrag: true
+    MouseDarg{
+        anchors.fill: parent
+        operObj: root
+        isCanOper:g_isDrag
+    }
+
     Loader{
         id:registerLoader
         anchors.fill: parent

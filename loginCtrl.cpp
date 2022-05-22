@@ -1,9 +1,9 @@
-#include "LoginCtrl.h"
+#include "loginCtrl.h"
 #include <QDebug>
 #include <QJsonObject>
 #include <QJsonDocument>
-#include "Utility.h"
-#include "ErrorCode.h"
+#include "utility.h"
+#include "errorCode.h"
 #include <QStandardItem>
 
 LoginCtrl::LoginCtrl(QObject *parent):QObject(parent)

@@ -3,17 +3,7 @@ import QtQuick 2.0
 Item {
     Rectangle {
         id: rectangle
-        color: "#ffffff"
         anchors.fill: parent
-
-        Text {
-            id: text1
-            text: qsTr("Application")
-            anchors.fill: parent
-            font.pixelSize: 63
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
-        }
     }
 
 }

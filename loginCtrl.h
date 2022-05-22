@@ -3,7 +3,7 @@
 #include <QObject>
 #include <QStandardItemModel>
 #include <QQmlContext>
-#include "sqlite/SystemSqliteAccess.h"
+#include "sqlite/systemSqliteAccess.h"
 class UserModel:public QStandardItemModel
 {
    Q_OBJECT

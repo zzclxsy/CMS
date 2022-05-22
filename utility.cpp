@@ -1,4 +1,4 @@
-#include "Utility.h"
+#include "utility.h"
 #include <QJsonDocument>
 
 QString Utility::JsonToString(QJsonObject &json)

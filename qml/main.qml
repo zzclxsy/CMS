@@ -60,8 +60,6 @@ Window {
             root.height = 900
             root.setX(Screen.width / 2 - width / 2);
             root.setY(Screen.height / 2 - height / 2);
-
-            pageLoader.item.listviewCurrIndex  = 0
         }
     }
     //Register信号

@@ -1,7 +1,8 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-#include "LoginCtrl.h"
-#include "ErrorCode.h"
+#include "loginCtrl.h"
+#include "errorCode.h"
+#include "logData.h"
 #include <QQmlContext>
 #include <QDebug>
 int main(int argc, char *argv[])
@@ -11,8 +12,16 @@ int main(int argc, char *argv[])
 #endif
     QGuiApplication app(argc, argv);
 
+    LogData logdata;
     LoginCtrl login;
     QQmlApplicationEngine engine;
+
+
+   // qmlRegisterType<LogModel>("LogModel",1,0,"LogModel");
+   // qmlRegisterType<LogItem>("LogItem",1,0,"LogItem");
+
+
+    engine.rootContext()->setContextProperty("LogData",&logdata);
 
     engine.rootContext()->setContextProperty("UsersModel",login.userModel());
     engine.rootContext()->setContextProperty("Logindata",(QObject *)&login);

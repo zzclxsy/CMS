@@ -1,12 +1,12 @@
 import QtQuick 2.0
 import QtGraphicalEffects 1.12
 import QtQml 2.12
+import QtQuick.Controls 2.5
 
 Item {
     id :itemroot
     width: 1400
     height: 900
-    property alias listviewCurrIndex: listView.currentIndex
     property point deltaPos: "0,0"
     signal closeLogin()
     property bool g_currWinStatus: false
@@ -38,86 +38,25 @@ Item {
                     deltaPos = changePos
             }
 
-            ListView {
-                id: listView
+            SwipeView {
+                id: swipeView
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
-                anchors.rightMargin: 8
-                anchors.leftMargin: 125
+                anchors.topMargin: 85
                 anchors.bottomMargin: 8
-                anchors.topMargin: 77
-
+                anchors.leftMargin: 125
+                anchors.rightMargin: 8
+                orientation:Qt.Vertical
+                interactive :false
                 clip: true
-                orientation: ListView.Vertical
-                snapMode: ListView.SnapOneItem
-                highlightRangeMode: ListView.StrictlyEnforceRange
-                currentIndex: 0
-                highlightMoveDuration:300
-                interactive:false
-                spacing: 5
-                model: ListModel {
-                    ListElement {
-                        name: "userInfPage"
-                    }
 
-                    ListElement {
-                        name: "applicationWin"
-                    }
-
-                    ListElement {
-                        name: "logShow"
-                    }
-
-                    ListElement {
-                        name: "hardware"
-                    }
-                    ListElement {
-                        name: "monitor"
-                    }
-                }
-                delegate:listviewdelegate
-            }
-
-            Component{
-                id:listviewdelegate
-                Rectangle {
-                    width: listView.width
-                    height: listView.height
-                    Component.onCompleted: {
-                        if (name === "userInfPage")
-                        {
-                            userInfoWin.visible = true
-                            userInfoWin.parent =this
-                            userInfoWin.anchors.fill =this
-                        }
-                        else if (name === "applicationWin")
-                        {
-                            applicationWin.visible = true
-                            applicationWin.parent =this
-                            applicationWin.anchors.fill =this
-                        }
-                        else if (name === "logShow")
-                        {
-                            logShow.visible = true
-                            logShow.parent =this
-                            logShow.anchors.fill =this
-                        }
-                        else if (name === "hardware")
-                        {
-                            hardware.visible = true
-                            hardware.parent =this
-                            hardware.anchors.fill =this
-                        }
-                        else if (name === "monitor")
-                        {
-                            monitor.visible = true
-                            monitor.parent =this
-                            monitor.anchors.fill =this
-                        }
-                    }
-                }
+                UserInfo{id:userInfoWin}
+                ApplicationWin{id:applicationWin}
+                LogShow{id:logShow}
+                Hardware{id:hardware}
+                Monitor{id:monitor}
             }
 
             Rectangle {
@@ -138,7 +77,7 @@ Item {
                     color: "#00ffffff"
                     border.width: 0
                     anchors.top: parent.top
-                    anchors.topMargin: 18
+                    anchors.topMargin: 128
                     anchors.horizontalCenterOffset: 0
                     anchors.horizontalCenter: parent.horizontalCenter
                     property bool m_isClicked: true
@@ -203,7 +142,7 @@ Item {
                             logBtn.m_isClicked = false
                             hardwareBtn.m_isClicked = false
                             monitorBtn.m_isClicked = false
-                            listView.currentIndex = 0
+                            swipeView.currentIndex = 0
                         }
                     }
                 }
@@ -215,7 +154,7 @@ Item {
                     color: "#004fe789"
                     border.width: 0
                     anchors.top: parent.top
-                    anchors.topMargin: 130
+                    anchors.topMargin: 234
                     anchors.horizontalCenterOffset: 0
                     anchors.horizontalCenter: parent.horizontalCenter
                     property bool m_isClicked: false
@@ -274,7 +213,7 @@ Item {
                             logBtn.m_isClicked = false
                             hardwareBtn.m_isClicked = false
                             monitorBtn.m_isClicked = false
-                            listView.currentIndex = 1
+                            swipeView.currentIndex = 1
                         }
                     }
                 }
@@ -286,7 +225,7 @@ Item {
                     color: "#005e1fbe"
                     border.width: 0
                     anchors.top: parent.top
-                    anchors.topMargin: 242
+                    anchors.topMargin: 340
                     anchors.horizontalCenterOffset: 0
                     anchors.horizontalCenter: parent.horizontalCenter
                     property bool m_isClicked: false
@@ -341,7 +280,7 @@ Item {
                             logBtn.m_isClicked = true
                             hardwareBtn.m_isClicked = false
                             monitorBtn.m_isClicked = false
-                            listView.currentIndex = 2
+                            swipeView.currentIndex = 2
                         }
                     }
                 }
@@ -353,7 +292,7 @@ Item {
                     color: "#00f612f2"
                     border.width: 0
                     anchors.top: parent.top
-                    anchors.topMargin: 360
+                    anchors.topMargin: 446
                     anchors.horizontalCenterOffset: 0
                     anchors.horizontalCenter: parent.horizontalCenter
                     property bool m_isClicked: false
@@ -407,7 +346,7 @@ Item {
                             logBtn.m_isClicked = false
                             hardwareBtn.m_isClicked = true
                             monitorBtn.m_isClicked = false
-                            listView.currentIndex = 3
+                            swipeView.currentIndex = 3
                         }
                     }
                 }
@@ -418,7 +357,7 @@ Item {
                     height: 100
                     color: "#00ffffff"
                     anchors.top: parent.top
-                    anchors.topMargin: 478
+                    anchors.topMargin: 552
                     anchors.horizontalCenterOffset: 0
                     anchors.horizontalCenter: parent.horizontalCenter
                     property bool m_isClicked: false
@@ -471,7 +410,7 @@ Item {
                             logBtn.m_isClicked = false
                             hardwareBtn.m_isClicked = false
                             monitorBtn.m_isClicked = true
-                            listView.currentIndex = 4
+                            swipeView.currentIndex = 4
                         }
                     }
                 }
@@ -489,29 +428,37 @@ Item {
                     anchors.horizontalCenter: parent.horizontalCenter
                     fillMode: Image.PreserveAspectFit
                 }
-            }
 
+                Image {
+                    id: maskimage
+                    x: 10
+                    y: 31
+                    width: 80
+                    height: 80
+                    source: "qrc:/qtquickplugin/images/template_image.png"
+                    anchors.horizontalCenterOffset: 0
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    fillMode: Image.PreserveAspectFit
+                }
 
-            UserInfo{
-                id:userInfoWin
-                visible: false
-            }
-            ApplicationWin{
-                id:applicationWin
-                visible: false
-            }
-            LogShow{
-                id:logShow
-                visible: false
-            }
+                Rectangle {
+                    id: rectangle3
+                    x: 10
+                    y: 31
+                    width: 80
+                    height: 80
+                    color: "#ffffff"
+                    radius: 50
+                    border.width: 0
+                    anchors.horizontalCenterOffset: 0
+                    anchors.horizontalCenter: parent.horizontalCenter
+                }
 
-            Hardware{
-                id:hardware
-                visible: false
-            }
-            Monitor{
-                id:monitor
-                visible: false
+                OpacityMask{
+                    anchors.fill: maskimage
+                    source: maskimage
+                    maskSource: rectangle3
+                }
             }
 
             Rectangle {
@@ -785,6 +732,6 @@ Item {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.6600000262260437}
+    D{i:0;formeditorZoom:0.6600000262260437}D{i:4}
 }
 ##^##*/

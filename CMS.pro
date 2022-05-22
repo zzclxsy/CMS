@@ -11,19 +11,21 @@ CONFIG(debug, debug|release){
     DESTDIR = $$PWD/../bin/release
 }
 HEADERS += \
-    ErrorCode.h \
-    LoginCtrl.h \
-    Utility.h \
-    sqlite/BaseSqliteAccess.h \
-    sqlite/SystemSqliteAccess.h
+    errorCode.h \
+    logData.h \
+    loginCtrl.h \
+    sqlite/baseSqliteAccess.h \
+    sqlite/systemSqliteAccess.h \
+    utility.h
 
 
 SOURCES += \
-	LoginCtrl.cpp \
-	Utility.cpp \
+	logData.cpp \
+	loginCtrl.cpp \
 	main.cpp \
-	sqlite/BaseSqliteAccess.cpp \
-	sqlite/SystemSqliteAccess.cpp
+	sqlite/baseSqliteAccess.cpp \
+	sqlite/systemSqliteAccess.cpp \
+	utility.cpp
 
 RESOURCES += qml.qrc \
     Resource.qrc

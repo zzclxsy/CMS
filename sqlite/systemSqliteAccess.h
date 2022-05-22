@@ -1,7 +1,7 @@
 #ifndef SYSTEMSQLITEACCESS_H
 #define SYSTEMSQLITEACCESS_H
 
-#include "BaseSqliteAccess.h"
+#include "baseSqliteAccess.h"
 
 typedef struct{
     QString userName;

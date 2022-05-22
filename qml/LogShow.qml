@@ -2,12 +2,15 @@ import QtQuick 2.0
 import QtQml 2.12
 import QtQuick.Controls 2.5
 Item {
+    property bool winchangeFlag: false
+    function winChange(win)
+    {
+        winchangeFlag = true
+    }
     Rectangle {
         id: rectangle
         color: "#ffffff"
         anchors.fill: parent
-
-
 
         Connections{
             target: LogData
@@ -54,8 +57,8 @@ Item {
                     readOnly: true
                     selectByMouse:true
                     selectedTextColor:"#ffffff"
-
                     selectionColor:"#6495ED"
+                    cursorVisible :true
                     clip: true
                     font{
                         family: "黑体"
@@ -71,10 +74,11 @@ Item {
                         {
                             var delta = height - beforeHeight;
                             var newPos = height - flickAlllog.height
-                            if (flickAlllog.contentY + delta === newPos || fristMove)
+                            if (flickAlllog.contentY + delta === newPos || fristMove || winchangeFlag)
                             {
                                 flickAlllog.contentY = newPos
-                                fristMove = false
+                                if (fristMove === true) fristMove = false
+                                if (winchangeFlag === true) winchangeFlag = false
                             }
                         }
 
@@ -114,10 +118,11 @@ Item {
                         {
                             var delta = height - beforeHeight;
                             var newPos = height - flickDebuglog.height
-                            if (flickDebuglog.contentY + delta === newPos || fristMove)
+                            if (flickDebuglog.contentY + delta === newPos || fristMove||winchangeFlag)
                             {
                                 flickDebuglog.contentY = newPos
-                                fristMove = false
+                                if (fristMove === true) fristMove = false
+                                if (winchangeFlag === true) winchangeFlag = false
                             }
                         }
 
@@ -134,13 +139,13 @@ Item {
                 contentHeight:infoLog.height
                 contentWidth: infoLog.width
                 clip: true
+
                 TextArea{
                     id:infoLog
                     textFormat:TextEdit.RichText
                     readOnly: true
                     selectByMouse:true
                     selectedTextColor:"#ffffff"
-
                     selectionColor:"#6495ED"
                     clip: true
                     font{
@@ -158,10 +163,11 @@ Item {
                         {
                             var delta = height - beforeHeight;
                             var newPos = height - flickInfolog.height
-                            if (flickInfolog.contentY + delta === newPos || fristMove)
+                            if (flickInfolog.contentY + delta === newPos || fristMove || winchangeFlag)
                             {
                                 flickInfolog.contentY = newPos
-                                fristMove = false
+                                if (fristMove === true) fristMove = false
+                                if (winchangeFlag === true) winchangeFlag = false
                             }
                         }
 
@@ -202,10 +208,11 @@ Item {
                         {
                             var delta = height - beforeHeight;
                             var newPos = height - flickWarnlog.height
-                            if (flickWarnlog.contentY + delta === newPos || fristMove)
+                            if (flickWarnlog.contentY + delta === newPos || fristMove || winchangeFlag)
                             {
                                 flickWarnlog.contentY = newPos
-                                fristMove = false
+                                if (fristMove === true) fristMove = false
+                                if (winchangeFlag === true) winchangeFlag = false
                             }
                         }
 
@@ -246,10 +253,11 @@ Item {
                         {
                             var delta = height - beforeHeight;
                             var newPos = height - flickErrorlog.height
-                            if (flickErrorlog.contentY + delta === newPos || fristMove)
+                            if (flickErrorlog.contentY + delta === newPos || fristMove || winchangeFlag)
                             {
                                 flickErrorlog.contentY = newPos
-                                fristMove = false
+                                if (fristMove === true) fristMove = false
+                                if (winchangeFlag === true) winchangeFlag = false
                             }
                         }
 
@@ -260,7 +268,6 @@ Item {
             }
         }
     }
-
 
     Row {
         id: row

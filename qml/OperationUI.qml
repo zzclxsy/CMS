@@ -20,6 +20,9 @@ Item {
         source: mainRect
         color: "black"
     }
+    onG_currWinStatusChanged: {
+        logShow.winChange(g_currWinStatus)
+    }
 
     Rectangle {
         id: mainRect

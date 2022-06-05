@@ -180,7 +180,7 @@ Item {
                             }
 
                             onClicked: {
-                                if (UsersModel.count() === 0)
+                                if (LoginManager_UsersModel.count() === 0)
                                     return
 
                                 if (listView.visible)
@@ -362,7 +362,7 @@ Item {
                     }
 
                     onClicked: {
-                        var ret =  Logindata.login(userName.text,password.text);
+                        var ret =  LoginManager.login(userName.text,password.text);
                         if (ret !== "")
                         {
                             var obj = JSON.parse(ret)
@@ -621,8 +621,8 @@ Item {
                                 {
                                     if (result === 0)
                                     {
-                                        UsersModel.deleteRow(index)
-                                        if (UsersModel.count() === 0)
+                                        LoginManager_UsersModel.deleteRow(index)
+                                        if (LoginManager_UsersModel.count() === 0)
                                             closeUserList()
                                     }
                                 }
@@ -635,7 +635,7 @@ Item {
                         }
                     }
                 }
-                model:UsersModel
+                model:LoginManager_UsersModel
 
 
             }

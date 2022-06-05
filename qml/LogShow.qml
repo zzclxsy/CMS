@@ -13,7 +13,7 @@ Item {
         anchors.fill: parent
 
         Connections{
-            target: LogData
+            target: LogManager
             onSetLogMessage:
             {
                 var str = "";

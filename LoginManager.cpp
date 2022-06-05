@@ -1,12 +1,12 @@
-#include "loginCtrl.h"
+#include "LoginManager.h"
 #include <QDebug>
 #include <QJsonObject>
 #include <QJsonDocument>
-#include "utility.h"
-#include "errorCode.h"
+#include "Utility.h"
+#include "ErrorCode.h"
 #include <QStandardItem>
 
-LoginCtrl::LoginCtrl(QObject *parent):QObject(parent)
+LoginManager::LoginManager(QObject *parent):QObject(parent)
 {
     SystemSqliteAccess::instance();
     mp_userModel = new UserModel;
@@ -17,12 +17,12 @@ LoginCtrl::LoginCtrl(QObject *parent):QObject(parent)
     }
 }
 
-LoginCtrl::~LoginCtrl()
+LoginManager::~LoginManager()
 {
 
 }
 
-QString LoginCtrl::login(QString userName, QString password)
+QString LoginManager::login(QString userName, QString password)
 { 
     QJsonObject root;
     QJsonObject error;
@@ -52,7 +52,7 @@ QString LoginCtrl::login(QString userName, QString password)
     return Utility::JsonToString(root);
 }
 
-QString LoginCtrl::registerUser(const QVariantList &userInfo)
+QString LoginManager::registerUser(const QVariantList &userInfo)
 {
     User_t user;
     user.userName = userInfo[0].toString();
@@ -64,7 +64,7 @@ QString LoginCtrl::registerUser(const QVariantList &userInfo)
     QJsonObject error;
 
     SystemSqliteAccess *dataBase = SystemSqliteAccess::instance();
-
+     qDebug()<<"22";
     do
     {
         if (user.userName.isEmpty() || user.password.isEmpty() || user.question.isEmpty()
@@ -96,7 +96,7 @@ QString LoginCtrl::registerUser(const QVariantList &userInfo)
     return Utility::JsonToString(root);
 }
 
-QString LoginCtrl::judgeSecurityQuestion(QString userName, QString question, QString answer)
+QString LoginManager::judgeSecurityQuestion(QString userName, QString question, QString answer)
 {
     QJsonObject root;
     QJsonObject error;
@@ -123,7 +123,7 @@ QString LoginCtrl::judgeSecurityQuestion(QString userName, QString question, QSt
     return Utility::JsonToString(root);
 }
 
-QString LoginCtrl::setNewPassword(QString userName, QString password)
+QString LoginManager::setNewPassword(QString userName, QString password)
 {
     QJsonObject root;
     QJsonObject error;
@@ -163,7 +163,7 @@ QString LoginCtrl::setNewPassword(QString userName, QString password)
     return Utility::JsonToString(root);
 }
 
-UserModel *LoginCtrl::userModel()
+UserModel *LoginManager::userModel()
 {
     return mp_userModel;
 }

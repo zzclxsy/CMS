@@ -28,6 +28,20 @@ Item {
             root.g_isDrag = true
     }
 
+    Connections{
+        target: LogManager
+        onTcpLinkChange:{
+            if (isLink === true)
+            {
+                logLamp.source = "qrc:/image/lampOn.svg"
+            }
+            else
+            {
+                logLamp.source = "qrc:/image/lampOff.svg"
+            }
+        }
+    }
+
     Rectangle {
         id: mainRect
         color: "#ffffff"
@@ -421,7 +435,7 @@ Item {
                 width: 88
                 height: 45
                 anchors.bottom: parent.bottom
-                source: "qrc:/image/cms.jpg"
+                source: "qrc:/image/CMS.png"
                 anchors.horizontalCenterOffset: 0
                 anchors.bottomMargin: 0
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -434,10 +448,12 @@ Item {
                 y: 31
                 width: 80
                 height: 80
-                source: "qrc:/qtquickplugin/images/template_image.png"
+                source: "qrc:/image/manUser.png"
                 anchors.horizontalCenterOffset: 0
                 anchors.horizontalCenter: parent.horizontalCenter
                 fillMode: Image.PreserveAspectFit
+                smooth: true
+                visible: false
             }
 
             Rectangle {
@@ -451,6 +467,7 @@ Item {
                 border.width: 0
                 anchors.horizontalCenterOffset: 0
                 anchors.horizontalCenter: parent.horizontalCenter
+                visible: false
             }
 
             OpacityMask{
@@ -528,7 +545,7 @@ Item {
                 }
 
                 Image {
-                    id: image9
+                    id: logLamp
                     x: 1023
                     y: 8
                     width: 76
@@ -732,6 +749,6 @@ Item {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.6600000262260437}D{i:4}
+    D{i:0;formeditorZoom:0.6600000262260437}
 }
 ##^##*/

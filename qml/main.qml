@@ -12,6 +12,7 @@ Window {
     title: qsTr("Hello World")
     color: "#00000000"
     property bool g_isDrag: true
+
     MouseDarg{
         anchors.fill: parent
         operObj: root
@@ -35,6 +36,9 @@ Window {
         anchors.fill: parent
         source: "Login.qml"
         anchors.margins : pageLoader.item.g_currWinStatus === false ? 10 : 0
+        onLoaded: {
+                LogManager.hasInitmainUI(source)
+        }
     }
 
     //login 信号

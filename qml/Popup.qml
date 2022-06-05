@@ -48,7 +48,7 @@ Rectangle {
     property string animationType : 'none';
     property int duration : 400
     property int easingType : Easing.OutBounce
-
+    property alias maskOpacity: mask.opacity
 
     // 私有属性
     property int innerX;
@@ -56,7 +56,6 @@ Rectangle {
     property int innerWidth;
     property int innerHeight;
     property double innerOpacity;
-
 
     //------------------------------
     // 事件

@@ -412,7 +412,8 @@ Item {
                     hoverEnabled: true
                     onClicked: {
                         var userInfo = [userName.text, password.text,question.text,answer.text]
-                        var ret =  Logindata.registerUser(userInfo);
+                        var ret =  LoginManager.registerUser(userInfo);
+
                         if (ret !== "")
                         {
                             var obj = JSON.parse(ret)

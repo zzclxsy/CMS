@@ -25,18 +25,18 @@ public:
     }
 };
 
-class LoginCtrl: public QObject
+class LoginManager: public QObject
 {
     Q_OBJECT
 public:
-    LoginCtrl(QObject *parent = nullptr);
-    ~LoginCtrl();
+    LoginManager(QObject *parent = nullptr);
+    ~LoginManager();
     Q_INVOKABLE QString login(QString userName, QString password);
     Q_INVOKABLE QString registerUser(const QVariantList &userInfo);
     Q_INVOKABLE QString judgeSecurityQuestion(QString userName, QString question, QString answer);
     Q_INVOKABLE QString setNewPassword(QString userName, QString password);
+    Q_INVOKABLE UserModel *userModel();
 
-    UserModel *userModel();
 private:
     UserModel *mp_userModel;
     QString Mm;

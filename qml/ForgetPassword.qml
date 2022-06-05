@@ -9,7 +9,7 @@ Item {
     property var userName
     function getUserName(name)
     {
-        question.text = UsersModel.getQuestion((name))
+        question.text = LoginManager_UsersModel.getQuestion((name))
         userName = name
     }
 
@@ -329,7 +329,7 @@ Item {
                     }
                     hoverEnabled: true
                     onClicked: {
-                        var ret =  Logindata.judgeSecurityQuestion(userName, question.text, answer.text);
+                        var ret =  LoginManager.judgeSecurityQuestion(userName, question.text, answer.text);
                         if (ret !== "")
                         {
                             var obj = JSON.parse(ret)
@@ -337,7 +337,7 @@ Item {
                         }
                         else
                         {
-                            var ret2 = Logindata.setNewPassword(userName, password.text)
+                            var ret2 = LoginManager.setNewPassword(userName, password.text)
                             if (ret2 !== "")
                             {
                                 var obj2 = JSON.parse(ret2)

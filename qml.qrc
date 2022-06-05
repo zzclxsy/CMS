@@ -15,5 +15,9 @@
         <file>qml/Hardware.qml</file>
         <file>qml/Monitor.qml</file>
         <file>qml/MouseDarg.qml</file>
+        <file>qml/LoadPlugin.qml</file>
+        <file>qml/element/DialogWin.qml</file>
+        <file>qml/element/WaitMask.qml</file>
+        <file>qml/Excessive.qml</file>
     </qresource>
 </RCC>

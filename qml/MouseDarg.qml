@@ -113,10 +113,10 @@ MouseArea {
             operObj.setY(operObj.y + changePos.y)
         }else if (g_mousePos === "bottom")
         {
-            operObj.setHeight(g_currPos.y)
+            operObj.height = (g_currPos.y)
         }else if (g_mousePos === "right")
         {
-            operObj.setWidth(g_currPos.x)
+            operObj.width = (g_currPos.x)
         }
         else if (g_mousePos === "leftTop")
         {
@@ -134,8 +134,8 @@ MouseArea {
         }
         else if (g_mousePos === "rightBottom")
         {
-            operObj.setWidth(g_currPos.x)
-            operObj.setHeight(g_currPos.y)
+            operObj.width  = (g_currPos.x)
+            operObj.height = (g_currPos.y)
         }
     }
 }

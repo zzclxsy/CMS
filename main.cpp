@@ -1,8 +1,6 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-#include "loginCtrl.h"
-#include "errorCode.h"
-#include "logData.h"
+#include "ContextAssemble.h"
 #include <QQmlContext>
 #include <QDebug>
 #include "XCoreApplication.h"
@@ -12,14 +10,25 @@ int main(int argc, char *argv[])
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
     QGuiApplication app(argc, argv);
-    XCoreApplication(argc,argv);
-    LogData logdata;
-    LoginCtrl login;
-    QQmlApplicationEngine engine;
+    XCoreApplication XApp(argc,argv);
 
-    engine.rootContext()->setContextProperty("LogData",&logdata);
-    engine.rootContext()->setContextProperty("UsersModel",login.userModel());
-    engine.rootContext()->setContextProperty("Logindata",(QObject *)&login);
+    //创建插件文件夹
+    QString pluginfile = qApp->applicationDirPath() + "/plugin";
+    QDir dir(pluginfile);
+    if(!dir.exists())
+        dir.mkdir(pluginfile);
+
+    //创建临时文件夹
+    pluginfile = qApp->applicationDirPath() + "/temp";
+    QDir dir2(pluginfile);
+    if(!dir2.exists())
+        dir2.mkdir(pluginfile);
+
+    ContextAssemble CAssemble;
+    QQmlApplicationEngine engine;
+    engine.addImportPath("./plugin/");
+    CAssemble.RegisterContext(&engine);
+
     const QUrl url(QStringLiteral("qrc:/qml/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {
